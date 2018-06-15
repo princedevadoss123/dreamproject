@@ -5,13 +5,15 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { LoginChooserComponent } from './login-chooser/login-chooser.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { NavTabComponent } from './nav-tab/nav-tab.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginChooserComponent,
-    StartPageComponent
+    StartPageComponent,
+    NavTabComponent
   ],
   imports: [
     routing,
