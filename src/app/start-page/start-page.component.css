@@ -30,10 +30,10 @@
     border: none;
     border-radius: 8px;
     border: 1px solid #eff3f3;
-    color: #059faad3;
+    color: #f9fcfc;
     font-weight: 600;
     font-family: 'Open Sans', sans-serif;
-    text-shadow: 0 0 1px rgba(255, 255, 255), 0 0 2px #1d90d8;
+    text-shadow: 0 0 1px rgb(83, 81, 81), 0 0 2px #030608;
     font-size: 24px;
     text-align: center;
     text-indent: 5px;
