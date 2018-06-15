@@ -19,7 +19,7 @@ app.use(express.static('./dist'));
 
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
-    res.sendFile('./dist/index.html');
+    res.sendFile('index.html', {root: './dist'});
 });
 
 //Set Port

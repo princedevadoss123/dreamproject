@@ -1,0 +1,79 @@
+.initial-page-background {
+    background: url('../../assets/images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+.signup {
+    top: 5%;
+    left: 5%;
+    width: 20%;
+    height: 8%;
+}
+
+.login {
+    top: 5%;
+    left: 75%;
+    width: 20%;
+    height: 8%;
+}
+
+.button-styles {
+    position: absolute;
+    background: rgb(255,255,255,0.1);
+    -webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+    border: none;
+    border-radius: 8px;
+    border: 1px solid #eff3f3;
+    color: #059faad3;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    text-shadow: 0 0 1px rgba(255, 255, 255), 0 0 2px #1d90d8;
+    font-size: 24px;
+    text-align: center;
+    text-indent: 5px;
+    box-shadow: 0px 3px 0px 0px rgba(0,0,0,.2);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.button-styles::before{
+    content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+	opacity: 1;
+	-webkit-transform: translate(-105%,0);
+	transform: translate(-105%,0);
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: rgba(255,255,255,1);
+    background-color: rgba(255,255,255,0.25);
+    
+}
+
+.button-styles:hover::before {
+    opacity: 0;
+	-webkit-transform: translate(0,0);
+	transform: translate(0,0);
+}
+
+.button22:hover {
+	opacity: 1;	
+}
+
+.button-styles:active {
+    background:rgba(78, 181, 229, 0.6);
+}
