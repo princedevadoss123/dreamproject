@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { LoginChooserComponent } from './login-chooser/login-chooser.component';
-import { StartPageComponent } from './start-page/start-page.component';
 import { NavTabComponent } from './nav-tab/nav-tab.component';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 
@@ -13,7 +12,6 @@ import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
   declarations: [
     AppComponent,
     LoginChooserComponent,
-    StartPageComponent,
     NavTabComponent,
     SignUpFormComponent
   ],
