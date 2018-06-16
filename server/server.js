@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
+const spdy = require('spdy');
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
 const app = express();
 
 // API file for interacting with MongoDB
@@ -26,6 +29,22 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
-const server = http.createServer(app);
+//http server
+// const server = http.createServer(app);
+// server.listen(port, () => console.log(`Running on localhost:${port}`));
 
-server.listen(port, () => console.log(`Running on localhost:${port}`));
+//https server
+const options = {
+    key: fs.readFileSync('server/certificates/localhost-privkey.pem'),
+    cert:  fs.readFileSync('server/certificates/localhost-cert.pem')
+}
+spdy
+  .createServer(options, app)
+  .listen(port, (error) => {
+    if (error) {
+      console.error(error)
+      return process.exit(1)
+    } else {
+      console.log('Listening on port: ' + port + '.')
+    }
+  })
