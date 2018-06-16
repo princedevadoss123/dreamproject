@@ -19,4 +19,9 @@ export class StartPageComponent implements OnInit {
     this.urlString = '/login-chooser';
     this.router.navigate([this.urlString]);
   }
+
+  moveToSignUpPage() {
+    this.urlString = '/signUp';
+    this.router.navigate([this.urlString]);
+  }
 }
