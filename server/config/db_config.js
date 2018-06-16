@@ -4,6 +4,12 @@ const db_config = {
         host: "127.0.0.1",
         password:''
     }
+	postgres: {
+		host: "localhost",
+		dbuser: "postgres",
+		dbpassword: "jameela",
+		dbname: "userdb"
+	}
 }; 
 
 module.exports = db_config
