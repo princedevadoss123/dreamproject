@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { LoginChooserComponent } from './login-chooser/login-chooser.component';
 import { StartPageComponent } from './start-page/start-page.component';
 import { NavTabComponent } from './nav-tab/nav-tab.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { NavTabComponent } from './nav-tab/nav-tab.component';
     AppComponent,
     LoginChooserComponent,
     StartPageComponent,
-    NavTabComponent
+    NavTabComponent,
+    SignUpComponent,
+    SignUpFormComponent
   ],
   imports: [
     routing,
