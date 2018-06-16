@@ -6,6 +6,14 @@ const spdy = require('spdy');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const app = express();
+const db_config = require('./config/db_config')
+const session = require('express-session')
+const routes = require('./routes')
+const redis = require('redis')
+const RedisStore = require('connect-redis')(session);
+const passport = require('passport');
+
+
 
 // API file for interacting with MongoDB
 //const api = require('./server/routes/api');
@@ -17,6 +25,23 @@ app.use(bodyParser.urlencoded({ extended: false}));
 // Angular DIST output folder
 app.use(express.static('./dist'));
 
+var redisClient = redis.createClient(db_config.redis.redisPort,db_config.redis.redisHost);
+redisClient.auth(db_config.redis.redisPassword);
+
+redisClient.on('connect', function() {
+console.log('connected to redis!!');
+});
+redisClient.on("error", function (err) {
+    console.log("Error " + err);
+});
+
+app.use(session({
+  secret: 'keyboardcat',
+  store: new RedisStore({ host: db_config.redis.redisHost, port: db_config.redis.redisPort, client: db_config.redis.redisClient, pass: db_config.redis.redisPassword})
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/',routes);
 // API location
 //app.use('/api', api);
 
