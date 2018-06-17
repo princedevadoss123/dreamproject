@@ -9,9 +9,9 @@
     border-radius: 10px;
     box-shadow: 1px 3px 3px 3px rgba(0,0,0,.2);
     height: 75%;
-    width: 50%;
+    width: 30%;
     top: 15%;
-    left: 25%;
+    left: 35%;
     background: white;
     flex-grow: 1;
 	display: flex;
