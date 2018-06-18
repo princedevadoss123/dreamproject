@@ -1,6 +1,6 @@
 const passport = require('passport')
 const FacebookStrategy = require('passport-facebook').Strategy;
-const auth_config = require('../../config/auth_config')
+const auth_config = require('../../config/OAuth/FacebookStrategy')
 
 
 
@@ -13,10 +13,10 @@ passport.deserializeUser(function(id, done) {
   });
 
 passport.use(new FacebookStrategy({
-      clientID: auth_config.facebook.clientID,
-      clientSecret: auth_config.facebook.clientSecret,
-      callbackURL: auth_config.facebook.callbackURL,
-      profileFields: auth_config.facebook.profileFields
+      clientID: auth_config.clientID,
+      clientSecret: auth_config.clientSecret,
+      callbackURL: auth_config.callbackURL,
+      profileFields: auth_config.profileFields
     },
     function(accessToken, refreshToken, profile, done) {
       console.log(profile);
