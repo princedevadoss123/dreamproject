@@ -3,7 +3,22 @@
     <div class="icon google-icon"></div>
     <div class="icon facebook-icon"></div>
     <div class="icon linkedin-icon"></div>
-    <div class="divider"></div>
-    <button class="login-button"> Dream Login</button>
+    <div class="divider chooser-divider"></div>
+    <div class="login-form">
+      <div class="login-header">Login</div>
+      <div class="divider login-divider"></div>
+      <div class="content">
+        <div class="label">Email:</div>
+        <input class="input" type="text" placeholder="Email..."/>
+      </div>
+      <div class="content">
+          <div class="label">Password:</div>
+          <input class="input" type="password" placeholder="Password..."/>
+      </div>
+      <input class="login-check" type="checkbox"/><span class="show-password">show password</span>
+      <button class="login-button">Login</button>
+    </div>
+    <a class="login-register" [routerLink]="['/register']">register</a>
+    <a class="login-changepwd" href>change password</a>
   </div>
 </div>

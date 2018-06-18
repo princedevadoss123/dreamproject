@@ -1,27 +1,55 @@
 <div class="signUpForm-background">
     <div class="inner-area">
       <div>
-        <div class="input">
-            <label>First Name</label>
-            <input type="text">
-          </div>
-          <div class="input">
-              <label>Last Name</label>
-              <input type="text">
+        <section>
+            <div class="text-center">
+                <div class="card card-glass">
+                    <div class="card-body">
+                        <header>
+                            <h3>Registration</h3>
+                            <hr />
+                        </header>
+                        <div class="">
+                            <form class="myFormInput">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-success form-control-danger" placeholder="First Name *"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control form-control-success form-control-danger" placeholder="Last Name *"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-success form-control-danger" placeholder="Email *"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-success form-control-danger" placeholder="Username *"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-success form-control-danger" placeholder="Password *"/>
+                                </div>
+                                <div class="form-check mt-4 mb-4 text-left">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input"/>
+                                        <span>I Agree to Terms and Conditions.</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-block mt-5 mySubmitBtn" (click)="register()">
+                                        <span>Register</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="input">
-                <label>Email Id</label>
-                <input type="text">
-              </div>  
-      <div class="input">
-          <label>Username</label>
-          <input type="text">
-        </div>
-        <div class="input">
-          <label>Password</label>
-          <input type="password">
-        </div>
+        </section>
+
       </div>
-        <button class="register-button" (click)="onRegister()">Register</button>
       </div>
 </div>
