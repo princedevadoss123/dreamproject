@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-chooser.component.css']
 })
 export class LoginChooserComponent implements OnInit {
-
+  model: any = {};
   constructor() { }
 
   ngOnInit() {
+  }
+
+  login() {
+    console.log("hello");
   }
 
 }

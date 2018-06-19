@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule} from '@angular/forms';
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { LoginChooserComponent } from './login-chooser/login-chooser.component';
@@ -17,6 +17,7 @@ import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
   ],
   imports: [
     routing,
+    FormsModule,
     BrowserModule
   ],
   providers: [],
