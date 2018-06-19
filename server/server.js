@@ -62,8 +62,8 @@ app.set('port', port);
 
 //https server
 const options = {
-    key: fs.readFileSync('./config/certificates/localhost-privkey.pem'),
-    cert:  fs.readFileSync('./config/certificates/localhost-cert.pem')
+    key: fs.readFileSync('./server/config/certificates/localhost-privkey.pem'),
+    cert:  fs.readFileSync('./server/config/certificates/localhost-cert.pem')
 }
 spdy
   .createServer(options, app)
