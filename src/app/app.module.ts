@@ -7,6 +7,7 @@ import { LoginChooserComponent } from './login-chooser/login-chooser.component';
 import { NavTabComponent } from './nav-tab/nav-tab.component';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { ChangePwdComponent } from './change-pwd/change-pwd.component';
+import { AuthServiceService } from './services/auth-service.service';
 
 
 @NgModule({
@@ -22,7 +23,9 @@ import { ChangePwdComponent } from './change-pwd/change-pwd.component';
     FormsModule,
     BrowserModule
   ],
-  providers: [],
+  providers: [
+    AuthServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -8,7 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ChangePwdComponent implements OnInit {
   private model: any = {};
-  viewSelector: string;
+  viewSelector: any;
+  viewType: string;
   innerAreaHeight: string;
   innerAreaTop: string;
   sendButtonHeight: string;
@@ -22,21 +23,28 @@ export class ChangePwdComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.viewSelector = this.route.snapshot.queryParams['mode'];
-    if(this.viewSelector === 'request') {
-      this.innerAreaHeight = '30%';
-      this.innerAreaTop = '35%';
-      this.sendButtonHeight = '30%';
-      this.title = 'Enter Email Here';
-      this.buttonText = 'Send';
-    }
-    else {
-      this.innerAreaHeight = '50%';
-      this.innerAreaTop = '25%';
-      this.sendButtonHeight = '20%';
-      this.title = 'Change Password';
-      this.buttonText = 'Submit';
-    }
+    this.viewSelector = this.route
+      .queryParams
+        .subscribe(params => {
+          this.viewType = params['mode'];
+          if(this.viewType === 'request') {
+            this.innerAreaHeight = '30%';
+            this.innerAreaTop = '35%';
+            this.sendButtonHeight = '30%';
+            this.title = 'Enter Email Here';
+            this.buttonText = 'Send';
+          }
+          else {
+            this.innerAreaHeight = '50%';
+            this.innerAreaTop = '25%';
+            this.sendButtonHeight = '20%';
+            this.title = 'Change Password';
+            this.buttonText = 'Submit';
+          }
+    });
   }
 
+  ngOnDestroy() {
+    this.viewSelector.unsubscribe();
+  }
 }

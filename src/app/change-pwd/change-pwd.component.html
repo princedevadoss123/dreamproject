@@ -2,16 +2,16 @@
   <div class="inner-area" [ngStyle]="{ 'height' : innerAreaHeight, 'top' : innerAreaTop }">
     <div class="change-pwd-header">{{title}}</div>
     <form name="form" class="change-pwd-form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-        <div *ngIf="viewSelector === 'request'" class="content">
+        <div *ngIf="viewType === 'request'" class="content">
           <input class="input form-control" type="text" [ngClass]="{ 'input-error': f.submitted && !username.valid }" placeholder="Email..." name="username" [(ngModel)]="model.username" #username="ngModel" required/>
           <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !username.valid }">Username is required</div>
         </div>
-        <div *ngIf="viewSelector === 'success'" class="content form-group">
+        <div *ngIf="viewType === 'success'" class="content form-group">
             <div class="label">Password:</div>
             <input class="input form-control" type="text" [ngClass]="{ 'input-error': f.submitted && !password.valid }" placeholder="Password..." name="password" [(ngModel)]="model.password" #password="ngModel" required/>
             <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !password.valid }">Password field is empty</div>
         </div>
-        <div *ngIf="viewSelector === 'success'" class="change-content form-group">
+        <div *ngIf="viewType === 'success'" class="change-content form-group">
             <div class="label">Confirm Password:</div>
             <input class="input form-control" type="text" [ngClass]="{ 'input-error': f.submitted && !confPassword.valid }" placeholder="Confirm password..." name="confPassword" [(ngModel)]="model.confPassword" #confPassword="ngModel" required/>
             <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !confPassword.valid }">Confirm password field is empty</div>
