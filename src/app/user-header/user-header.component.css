@@ -1,0 +1,11 @@
+.myUserHeader {
+    position: absolute;
+    width: 100vw;
+    height: 10%;
+    background:  linear-gradient(rgba(1, 21, 133, 0.966), rgba(2, 51, 184, 0.979));
+}
+
+.myHeaderTitle {
+    font-size: 40px;
+    font-weight: bold;
+}
