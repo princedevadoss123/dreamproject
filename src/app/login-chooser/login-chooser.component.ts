@@ -10,6 +10,9 @@ import { ValidationService } from '../services/validation/validation.service';
 export class LoginChooserComponent implements OnInit {
   model: any = {};
   emailValidator: boolean = true;
+  passwordValidator:boolean = true;
+  intialModelCheck:boolean = false;
+
   constructor(
     @Inject(DOCUMENT) private document: any,
     private validator: ValidationService
@@ -18,8 +21,23 @@ export class LoginChooserComponent implements OnInit {
   ngOnInit() {
   }
 
+  passwordChecker() {
+    console.log(this.intialModelCheck);
+    if(this.intialModelCheck) {
+      this.validator.passwordValidation(this.model.password) ? this.passwordValidator = true : this.passwordValidator = false;
+    } 
+  }
+
+  emailChecker() {
+    if(this.intialModelCheck) {
+      this.validator.emailValidation(this.model.username) ? this.emailValidator = true : this.emailValidator = false;
+    }
+  }
+
   login() {
-    this.validator.emailValidation ? this.emailValidator = false : this.emailValidator = true;
+    this.intialModelCheck = true;
+    this.emailChecker();
+    this.passwordChecker();
   }
 
   oauthLogin(authType) {

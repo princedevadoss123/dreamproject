@@ -9,14 +9,15 @@
         <div class="divider login-divider"></div>
         <div class="content form-group">
           <div class="label">Email:</div>
-          <input class="input form-control" type="text" [ngClass]="{ 'input-error': (f.submitted && !username.valid) || !emailValidator }" placeholder="Email..." name="username" [(ngModel)]="model.username" #username="ngModel" required/>
+          <input class="input form-control" type="text" [ngClass]="{ 'input-error': (f.submitted && !username.valid) || !emailValidator }" placeholder="Email..." name="username" [(ngModel)]="model.username" (ngModelChange)="emailChecker()" #username="ngModel" required/>
           <div *ngIf="(f.submitted && !username.valid)" class="normal-block" [ngClass]="{ 'error-block': f.submitted && !username.valid }">Username is required</div>
           <div class="normal-block" [ngClass]="{ 'error-block': !(f.submitted && !username.valid) && !emailValidator }">Please enter correct Email ID</div>
         </div>
         <div class="content form-group">
           <div class="label">Password:</div>
-          <input class="input form-control" [ngClass]="{ 'input-error': f.submitted && !password.valid }" type="password" placeholder="Password..." name="password" [(ngModel)]="model.password" #password="ngModel" required/>
-          <div class="normal-block" [ngClass]="{ 'error-block' : f.submitted && !password.valid }">Password is required</div>
+          <input class="input form-control" [ngClass]="{ 'input-error': (f.submitted && !password.valid) || !passwordValidator }" type="password" placeholder="Password..." name="password" [(ngModel)]="model.password" (ngModelChange)="passwordChecker()" #password="ngModel" required/>
+          <div *ngIf="(f.submitted && !password.valid)" class="normal-block" [ngClass]="{ 'error-block' : f.submitted && !password.valid }">Password is required</div>
+          <div class="normal-block" [ngClass]="{ 'error-block': !(f.submitted && !password.valid) && !passwordValidator }">Password must contain minimum eight characters at least one letter and one number</div>
         </div>
         <input class="login-check" type="checkbox"/><span class="show-password">show password</span>
         <button class="login-button">Login</button>
