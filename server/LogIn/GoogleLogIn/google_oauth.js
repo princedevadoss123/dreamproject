@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const auth_config = require('../../config/auth_config')
+const auth_config = require('../../config/OAuth/GoogleStrategy')
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -15,9 +15,9 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, a token, tokenSecret, and Google profile), and
 //   invoke a callback with a user object.
 passport.use(new GoogleStrategy({
-    clientID: auth_config.google.clientID,
-    clientSecret: auth_config.google.clientSecret,
-    callbackURL: auth_config.google.callbackURL
+    clientID: auth_config.clientID,
+    clientSecret: auth_config.clientSecret,
+    callbackURL: auth_config.callbackURL
   },
   function(token, tokenSecret, profile, done) {
     console.log(profile);

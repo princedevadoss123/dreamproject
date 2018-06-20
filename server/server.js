@@ -6,7 +6,7 @@ const spdy = require('spdy');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const app = express();
-const db_config = require('./config/db_config')
+const db_config = require('./config/DBConfiguration/redis')
 const session = require('express-session')
 const routes = require('./routes')
 const redis = require('redis')
@@ -25,8 +25,8 @@ app.use(bodyParser.urlencoded({ extended: false}));
 // Angular DIST output folder
 app.use(express.static('./dist'));
 
-var redisClient = redis.createClient(db_config.redis.redisPort,db_config.redis.redisHost);
-redisClient.auth(db_config.redis.redisPassword);
+var redisClient = redis.createClient(db_config.port,db_config.host);
+redisClient.auth(db_config.password);
 
 redisClient.on('connect', function() {
 console.log('connected to redis!!');
@@ -37,7 +37,9 @@ redisClient.on("error", function (err) {
 
 app.use(session({
   secret: 'keyboardcat',
-  store: new RedisStore({ host: db_config.redis.redisHost, port: db_config.redis.redisPort, client: db_config.redis.redisClient, pass: db_config.redis.redisPassword})
+  store: new RedisStore({ host: db_config.host, port: db_config.port, client: redisClient, pass: db_config.password}),
+  saveUninitialized:false,
+  resave: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -60,8 +62,8 @@ app.set('port', port);
 
 //https server
 const options = {
-    key: fs.readFileSync('server/certificates/localhost-privkey.pem'),
-    cert:  fs.readFileSync('server/certificates/localhost-cert.pem')
+    key: fs.readFileSync('./server/config/certificates/localhost-privkey.pem'),
+    cert:  fs.readFileSync('./server/config/certificates/localhost-cert.pem')
 }
 spdy
   .createServer(options, app)

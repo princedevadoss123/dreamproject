@@ -2,7 +2,7 @@ var sequelize = require('sequelize')
 
 const StrategyUser = sequelize.define('StrategyUser',{
 	UserID:{
-		type:DataTypes.String
+		type:DataTypes.String,
 		primaryKey: true
 	},
 	Provider:{

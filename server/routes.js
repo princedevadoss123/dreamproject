@@ -1,7 +1,8 @@
 const routes = require('express').Router();
-const passportFacebook = require('./Authentication/Facebook/facebook_oauth');
-const passportGoogle = require('./Authentication/Google/google_oauth');
-const passportLink = require('./Authentication/Linkedin/linkedin_oauth');
+const passportFacebook = require('./LogIn/FacebookLogIn/facebook_oauth');
+const passportGoogle = require('./LogIn/GoogleLogIn/google_oauth');
+const passportLink = require('./LogIn/LinkedInLogIn//linkedin_oauth');
+const userSignUp = require('./SignUp/signup');
 
 
 
@@ -19,6 +20,7 @@ routes.get('/home', function(request,response){
 });
 
 /*Routes for Authentication from third party providers*/
+
 
 routes.get('/auth/facebook',
   passportFacebook.authenticate('facebook',{ scope: ['email'] }));
@@ -41,5 +43,10 @@ routes.get('/auth/google/callback',
 routes.get('/auth/linkedin/callback',
   passportLink.authenticate('linkedin', { successRedirect: '/home',
                                       failureRedirect: '/login' }));
-
+									  
+/*SignUp routes*/
+routes.get('/user/signup',function(request,response)
+{
+	userSignUp.createUser(request);
+});
 module.exports = routes;
