@@ -19,7 +19,7 @@
           <div *ngIf="(f.submitted && !password.valid)" class="normal-block" [ngClass]="{ 'error-block' : f.submitted && !password.valid }">Password is required</div>
           <div class="normal-block" [ngClass]="{ 'error-block': !(f.submitted && !password.valid) && !passwordValidator }">Password must contain minimum eight characters at least one letter and one number</div>
         </div>
-        <input class="login-check" type="checkbox"/><span class="show-password">show password</span>
+        <input class="login-check" type="checkbox" [(ngModel)]="model.logincheck" name="logincheck" (ngModelChange)="showPassword()" /><span class="show-password">show password</span>
         <button class="login-button">Login</button>
       </form>
     <a class="login-register" [routerLink]="['/change/pwd']" [queryParams]="{ mode : 'success' }">register</a>

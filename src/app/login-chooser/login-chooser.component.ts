@@ -34,6 +34,16 @@ export class LoginChooserComponent implements OnInit {
     }
   }
 
+  showPassword() {
+    var element = this.document.getElementsByName('password');
+    if(this.model.logincheck) {
+      element[0].setAttribute('type', 'text');
+    }
+    else {
+      element[0].setAttribute('type', 'password');
+    }
+  }
+
   login() {
     this.intialModelCheck = true;
     this.emailChecker();
