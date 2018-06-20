@@ -14,4 +14,9 @@ export class ValidationService {
     return (content.length > 0);
   }
 
+  passwordValidation(password) {
+    var regexp = new RegExp('^(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    return regexp.test(password);
+  }
+
 }
