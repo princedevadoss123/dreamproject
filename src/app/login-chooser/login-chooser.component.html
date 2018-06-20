@@ -1,8 +1,8 @@
 <div class="login-chooser-background">
   <div class="inner-area">
-    <div class="icon google-icon"></div>
-    <div class="icon facebook-icon"></div>
-    <div class="icon linkedin-icon"></div>
+    <div (click)="oauthLogin('google')" class="icon google-icon"></div>
+    <div (click)="oauthLogin('facebook')" class="icon facebook-icon"></div>
+    <div (click)="oauthLogin('linkedin')" class="icon linkedin-icon"></div>
     <div class="divider chooser-divider"></div>
       <form name="form" class="login-form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
         <div class="login-header">Login</div>

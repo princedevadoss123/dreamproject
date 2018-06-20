@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login-chooser',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginChooserComponent implements OnInit {
   model: any = {};
-  constructor() { }
+  constructor(
+    @Inject(DOCUMENT) private document: any
+  ) { }
 
   ngOnInit() {
   }
@@ -16,4 +19,7 @@ export class LoginChooserComponent implements OnInit {
     console.log("hello");
   }
 
+  oauthLogin(authType) {
+    this.document.location.href = '/auth/' + authType;
+  }
 }

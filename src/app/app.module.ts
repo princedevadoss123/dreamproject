@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { routing } from './app.routing';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginChooserComponent } from './login-chooser/login-chooser.component';
 import { NavTabComponent } from './nav-tab/nav-tab.component';
