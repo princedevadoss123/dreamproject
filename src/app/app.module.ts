@@ -9,6 +9,7 @@ import { NavTabComponent } from './nav-tab/nav-tab.component';
 import { SignUpFormComponent } from './sign-up-form/sign-up-form.component';
 import { ChangePwdComponent } from './change-pwd/change-pwd.component';
 import { AuthServiceService } from './services/auth-service.service';
+import { ValidationService} from './services/validation/validation.service';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AuthServiceService } from './services/auth-service.service';
     BrowserModule
   ],
   providers: [
-    AuthServiceService
+    AuthServiceService,
+    ValidationService
   ],
   bootstrap: [AppComponent]
 })

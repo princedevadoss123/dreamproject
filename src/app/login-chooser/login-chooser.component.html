@@ -9,8 +9,9 @@
         <div class="divider login-divider"></div>
         <div class="content form-group">
           <div class="label">Email:</div>
-          <input class="input form-control" type="text" [ngClass]="{ 'input-error': f.submitted && !username.valid }" placeholder="Email..." name="username" [(ngModel)]="model.username" #username="ngModel" required/>
-          <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !username.valid }">Username is required</div>
+          <input class="input form-control" type="text" [ngClass]="{ 'input-error': (f.submitted && !username.valid) || !emailValidator }" placeholder="Email..." name="username" [(ngModel)]="model.username" #username="ngModel" required/>
+          <div *ngIf="(f.submitted && !username.valid)" class="normal-block" [ngClass]="{ 'error-block': f.submitted && !username.valid }">Username is required</div>
+          <div class="normal-block" [ngClass]="{ 'error-block': !(f.submitted && !username.valid) && !emailValidator }">Please enter correct Email ID</div>
         </div>
         <div class="content form-group">
           <div class="label">Password:</div>
