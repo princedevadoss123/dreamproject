@@ -8,4 +8,13 @@
 .myHeaderTitle {
     font-size: 40px;
     font-weight: bold;
+    padding-left: 2%;
+}
+
+.myLogo {
+    top: 5%;
+    left: 2%;
+    background: url('../../assets/images/myLogo.jpg');
+    background-repeat: no-repeat;
+    background-size: 40px;
 }
