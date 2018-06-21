@@ -1,24 +1,28 @@
 <div class="login-chooser-background">
   <div class="inner-area">
-    <div class="icon google-icon"></div>
-    <div class="icon facebook-icon"></div>
-    <div class="icon linkedin-icon"></div>
+    <div (click)="oauthLogin('google')" class="icon google-icon"></div>
+    <div (click)="oauthLogin('facebook')" class="icon facebook-icon"></div>
+    <div (click)="oauthLogin('linkedin')" class="icon linkedin-icon"></div>
     <div class="divider chooser-divider"></div>
-    <div class="login-form">
-      <div class="login-header">Login</div>
-      <div class="divider login-divider"></div>
-      <div class="content">
-        <div class="label">Email:</div>
-        <input class="input" type="text" placeholder="Email..."/>
-      </div>
-      <div class="content">
+      <form name="form" class="login-form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+        <div class="login-header">Login</div>
+        <div class="divider login-divider"></div>
+        <div class="content form-group">
+          <div class="label">Email:</div>
+          <input class="input form-control" type="text" [ngClass]="{ 'input-error': (f.submitted && !username.valid) || !emailValidator }" placeholder="Email..." name="username" [(ngModel)]="model.username" (ngModelChange)="emailChecker()" #username="ngModel" required/>
+          <div *ngIf="(f.submitted && !username.valid)" class="normal-block" [ngClass]="{ 'error-block': f.submitted && !username.valid }">Username is required</div>
+          <div class="normal-block" [ngClass]="{ 'error-block': !(f.submitted && !username.valid) && !emailValidator }">Please enter correct Email ID</div>
+        </div>
+        <div class="content form-group">
           <div class="label">Password:</div>
-          <input class="input" type="password" placeholder="Password..."/>
-      </div>
-      <input class="login-check" type="checkbox"/><span class="show-password">show password</span>
-      <button class="login-button">Login</button>
-    </div>
-    <a class="login-register" [routerLink]="['/register']">register</a>
-    <a class="login-changepwd" href>change password</a>
+          <input class="input form-control" [ngClass]="{ 'input-error': (f.submitted && !password.valid) || !passwordValidator }" type="password" placeholder="Password..." name="password" [(ngModel)]="model.password" (ngModelChange)="passwordChecker()" #password="ngModel" required/>
+          <div *ngIf="(f.submitted && !password.valid)" class="normal-block" [ngClass]="{ 'error-block' : f.submitted && !password.valid }">Password is required</div>
+          <div class="normal-block" [ngClass]="{ 'error-block': !(f.submitted && !password.valid) && !passwordValidator }">Password must contain minimum eight characters at least one letter and one number</div>
+        </div>
+        <input class="login-check" type="checkbox" [(ngModel)]="model.logincheck" name="logincheck" (ngModelChange)="showPassword()" /><span class="show-password">show password</span>
+        <button class="login-button">Login</button>
+      </form>
+    <a class="login-register" [routerLink]="['/change/pwd']" [queryParams]="{ mode : 'success' }">register</a>
+    <a class="login-changepwd" [routerLink]="['/change/pwd']" [queryParams]="{ mode : 'request' }">change password</a>
   </div>
 </div>

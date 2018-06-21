@@ -1,36 +1,27 @@
 <div class="signUpForm-background">
     <div class="inner-area">
       <div>
-        <section>
-            <div class="text-center">
-                <div class="card card-glass">
-                    <div class="card-body">
-                        <header>
-                            <h3>Registration</h3>
-                            <hr />
-                        </header>
-                        <div class="">
-                            <form class="myFormInput">
+                            <!--<form class="myFormInput" [formGroup]="registrationForm">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-success form-control-danger" placeholder="First Name *"/>
+                                            <input type="text" class="form-control" placeholder="First Name *" formControlName="firstName"/>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-success form-control-danger" placeholder="Last Name *"/>
+                                            <input type="text" class="form-control" placeholder="Last Name *" formControlName="lastName"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-success form-control-danger" placeholder="Email *"/>
+                                    <input type="email" class="form-control" placeholder="Email *" formControlName="email"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-success form-control-danger" placeholder="Username *"/>
+                                    <input type="text" class="form-control" placeholder="Username *" formControlName="username"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-success form-control-danger" placeholder="Password *"/>
+                                    <input type="password" class="form-control" placeholder="Password *" formControlName="password"/>
                                 </div>
                                 <div class="form-check mt-4 mb-4 text-left">
                                     <label class="form-check-label">
@@ -39,16 +30,44 @@
                                     </label>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-block mt-5 mySubmitBtn" (click)="register()">
+                                    <button type="submit" class="btn btn-block mt-5 mySubmitBtn" (click)="register()" [disabled]="!registrationForm.valid">
                                         <span>Register</span>
                                     </button>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                            </form>-->
+                            <form name="form" class="register-form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+                                    <div class="register-header">Register</div>
+                                    <div class="divider register-divider"></div>
+                                    
+                                    <div class="content form-group">
+                                        <div class="label">First Name:</div>
+                                        <input class="input form-control" type="text" [ngClass]="{ 'input-error': (f.submitted && !firstName.valid)}" placeholder="First Name" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required/>
+                                        <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !firstName.valid}">First Name is required</div>
+                                    </div>
+                                    <div class="content form-group">
+                                        <div class="label">Last Name:</div>
+                                        <input class="input form-control" type="text" [ngClass]="{ 'input-error': (f.submitted && !lastName.valid)}" placeholder="Last Name" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required/>
+                                        <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !lastName.valid}">Last Name is required</div>
+                                    </div>
+                                    <div class="content form-group">
+                                        <div class="label">Email:</div>
+                                        <input class="input form-control" type="text" [ngClass]="{ 'input-error': (f.submitted && !email.valid)}" placeholder="Email" name="email" [(ngModel)]="model.email" #email="ngModel" required/>
+                                        <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !email.valid}">Email is required</div>
+                                    </div>
+                                    <div class="content form-group">
+                                        <div class="label">Username:</div>
+                                        <input class="input form-control" type="text" [ngClass]="{ 'input-error': (f.submitted && !username.valid)}" placeholder="Username" name="username" [(ngModel)]="model.username" #username="ngModel" required/>
+                                        <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !username.valid}">Username is required</div>
+                                    </div>
+                                    <div class="content form-group">
+                                        <div class="label">Password:</div>
+                                        <input class="input form-control" [ngClass]="{ 'input-error': f.submitted && !password.valid }" type="password" placeholder="Password" name="password" [(ngModel)]="model.password" #password="ngModel" required/>
+                                        <div class="normal-block" [ngClass]="{ 'error-block' : f.submitted && !password.valid }">Password is required</div>
+                                    </div>
+                                    <input class="register-check" type="checkbox"/><span class="show-password">show password</span>
+                                    <button class="register-button">Register</button>
+                                  </form>
+                  
 
       </div>
       </div>
