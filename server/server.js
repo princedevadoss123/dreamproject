@@ -12,6 +12,7 @@ const routes = require('./routes')
 const redis = require('redis')
 const RedisStore = require('connect-redis')(session);
 const passport = require('passport');
+const sequelize = require('./DatabaseUtil')
 
 
 
@@ -20,7 +21,7 @@ const passport = require('passport');
 
 // Parsers
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: true}));
 
 // Angular DIST output folder
 app.use(express.static('./dist'));
@@ -62,8 +63,8 @@ app.set('port', port);
 
 //https server
 const options = {
-    key: fs.readFileSync('./config/certificates/localhost-privkey.pem'),
-    cert:  fs.readFileSync('./config/certificates/localhost-cert.pem')
+    key: fs.readFileSync('server/config/certificates/localhost-privkey.pem'),
+    cert:  fs.readFileSync('server/config/certificates/localhost-cert.pem')
 }
 spdy
   .createServer(options, app)

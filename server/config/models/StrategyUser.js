@@ -1,25 +1,29 @@
-var sequelize = require('sequelize')
-
-const StrategyUser = sequelize.define('StrategyUser',{
-	UserID:{
-		type:DataTypes.String,
+var sequelize = require('../../DatabaseUtil')
+var Sequelize = require('sequelize')
+const StrategyUser = sequelize.define('strategyuser',{
+	userid:{
+		type:Sequelize.STRING,
 		primaryKey: true
 	},
-	Provider:{
-		type:DataTypes.String	
+	provider:{
+		type:Sequelize.STRING	
 	},
-	EmailID:{
-		type:DataTypes.String
+	emailid:{
+		type:Sequelize.STRING
 	},
-	UserName:{
-		type:DataTypes.String
+	username:{
+		type:Sequelize.STRING
 	},
-	IsDeleted:{
-		type:DataTypes.boolean
+	isdeleted:{
+		type:Sequelize.BOOLEAN
 	},
-	Contact:{
-		type:DataTypes.String
+	contact:{
+		type:Sequelize.STRING
 	}
+},{
+	timestamps: false
 });
+
+
 
 module.exports = StrategyUser

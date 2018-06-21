@@ -1,8 +1,7 @@
 const routes = require('express').Router();
-const passportFacebook = require('./LogIn/FacebookLogIn/facebook_oauth');
-const passportGoogle = require('./LogIn/GoogleLogIn/google_oauth');
-const passportLink = require('./LogIn/LinkedInLogIn//linkedin_oauth');
+const passport = require('./LogIn/oauth_providers/handle_oauth')
 const userSignUp = require('./SignUp/signup');
+const userverification = require('./SignUp/verify');
 
 
 
@@ -12,7 +11,7 @@ const userSignUp = require('./SignUp/signup');
 routes.get('/home', function(request,response){
 
     if(request.isAuthenticated()){
-      response.sendStatus(200);
+      response.redirect('/');
     }else{
       response.sendStatus(403);
     }
@@ -23,30 +22,56 @@ routes.get('/home', function(request,response){
 
 
 routes.get('/auth/facebook',
-  passportFacebook.authenticate('facebook',{ scope: ['email'] }));
+  passport.authenticate('facebook',{ scope: ['email'] }));
 
 routes.get('/auth/google',
-   passportGoogle.authenticate('google', { scope: ['email'] }));
+   passport.authenticate('google', { scope: ['email'] }));
 
 routes.get('/auth/linkedin',
-  passportLink.authenticate('linkedin'));
+  passport.authenticate('linkedin'));
+
+routes.post('/auth/login',
+  passport.authenticate('local', { successRedirect: '/home',
+                                   failureRedirect: '/home',
+                                   failureFlash: true })
+);
 
 /* Call back functions for Thirdparty Authentication Mechanisams*/
 
 routes.get('/auth/facebook/callback',
-  passportFacebook.authenticate('facebook', { successRedirect: '/home',
+  passport.authenticate('facebook', { successRedirect: '/home',
                                       failureRedirect: '/login' }));
 routes.get('/auth/google/callback',
-  passportGoogle.authenticate('google', { successRedirect: '/home',
+  passport.authenticate('google', { successRedirect: '/home',
                                       failureRedirect: '/login' }));
 
 routes.get('/auth/linkedin/callback',
-  passportLink.authenticate('linkedin', { successRedirect: '/home',
+  passport.authenticate('linkedin', { successRedirect: '/home',
                                       failureRedirect: '/login' }));
+
+routes.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 									  
 /*SignUp routes*/
-routes.get('/user/signup',function(request,response)
+routes.post('/user/signup',function(request,response)
 {
-	userSignUp.createUser(request);
+  userSignUp(request).then(function(result){
+    console.log("Success");
+    response.sendStatus(200).end();
+  }).catch(function(error){
+    console.log("Error");
+    response.sendStatus(500).end();
+  })
+});
+
+routes.get('/verify', function(request,response){
+    userverification(request).then(function(result){
+      response.sendStatus(200).end();
+    }).catch(function(error){
+      console.log('error');
+      response.send("Verification Failed").end();
+    })
 });
 module.exports = routes;

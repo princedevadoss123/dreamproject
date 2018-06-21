@@ -1,29 +1,31 @@
-var sequelize = require('sequelize')
+var sequelize = require('../../DatabaseUtil')
+var Sequelize = require('sequelize')
 
 const User = sequelize.define('User',{
-	UserName:{
-		type:DataTypes.String
+	username:{
+		type:Sequelize.STRING
 	},
-	Password:{
-		type:DataTypes.String
+	saltpassword:{
+		type:Sequelize.STRING
 	},
-	EmailID:{
-		type:DataTypes.String,
+	emailid:{
+		type:Sequelize.STRING,
 		primaryKey: true
 	},
-	Contact:{
-		type:DataTypes.String
+	contact:{
+		type:Sequelize.STRING
 	},
-	IsVerified:{
-		type:DataTypes.boolean
+	isverified:{
+		type:Sequelize.BOOLEAN
 	},
-	IsDeleted:{
-		type:DataTypes.boolean
+	isdeleted:{
+		type:Sequelize.BOOLEAN
 	},
-	SaltString:{
-		type:DataTypes.String
-	}
-	
+	saltstring:{
+		type:Sequelize.STRING
+	}	
+},{
+	timestamps: false
 });
 
 module.exports = User
