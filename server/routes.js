@@ -59,10 +59,10 @@ routes.post('/user/signup',function(request,response)
 {
   userSignUp(request).then(function(result){
     console.log("Success");
-    response.sendStatus(200).end();
+    response.send(200)
   }).catch(function(error){
     console.log("Error");
-    response.sendStatus(500).end();
+    response.send(500);
   })
 });
 

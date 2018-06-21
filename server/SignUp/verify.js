@@ -6,7 +6,7 @@ var verifyUser = function(request){
             return Promise.reject();
         }
         return user_model.update({isverified:true}, { where: {emailid: request.query.id} }).then(function(result){
-               return ;
+               return result;
         }).catch(function(error){
             return Promise.reject(error);
         });
