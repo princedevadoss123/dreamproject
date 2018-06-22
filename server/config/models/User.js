@@ -2,9 +2,6 @@ var sequelize = require('../../DatabaseUtil')
 var Sequelize = require('sequelize')
 
 const User = sequelize.define('user',{
-	username:{
-		type:Sequelize.STRING
-	},
 	saltpassword:{
 		type:Sequelize.STRING
 	},

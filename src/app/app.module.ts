@@ -30,7 +30,8 @@ import { ValidationService} from './services/validation/validation.service';
     routing,
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
 
   providers: [

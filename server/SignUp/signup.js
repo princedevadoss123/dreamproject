@@ -34,7 +34,6 @@ var signUp = function(request){
 
     return user_model.sync({force: false}).then(function(){
         return user_model.create({
-            username: request.body.username,
             saltstring: salt,
             emailid: request.body.email,
             contact: request.body.contact,
