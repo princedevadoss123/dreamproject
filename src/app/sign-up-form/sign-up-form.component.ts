@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidationService } from '../services/validation/validation.service';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-sign-up-form',
@@ -14,7 +15,8 @@ export class SignUpFormComponent implements OnInit {
   contactValidator:boolean = true;
   intialModelCheck:boolean = false;
   
-  constructor(private validator: ValidationService) { }
+  constructor(private validator: ValidationService,
+  private authenticator: AuthServiceService) { }
 
   ngOnInit() {
   }
@@ -49,5 +51,21 @@ export class SignUpFormComponent implements OnInit {
     this.passwordChecker();
     this.confPasswordChecker();
     this.contactChecker();
+    if(this.emailValidator && this.passwordValidator && this.contactValidator && this.confPasswordValidator) {
+      var registrationData = {
+        email: this.model.username,
+        password: this.model.password,
+        contact: this.model.contact
+      };
+      this.authenticator.register(registrationData)
+        .subscribe(
+          res => {
+            console.log("success");
+          },
+          err => {
+            console.log("Error occured");
+          }
+        );
+    }
   }
 }
