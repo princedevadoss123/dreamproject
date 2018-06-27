@@ -9,8 +9,12 @@ const userverification = require('./SignUp/verify');
 /* Sample Home Url to test the Login Functionality */
 
 routes.get('/home', function(request,response){
-
+    console.log("myrequest: " +  request.user);
+  
+   // console.log("myrequest: " +  request.session);
+    request.session
     if(request.isAuthenticated()){
+      console.log("Authentication successful");
       response.redirect('/');
     }else{
       response.sendStatus(403);
@@ -32,8 +36,8 @@ routes.get('/auth/linkedin',
 
 routes.post('/auth/login',
   passport.authenticate('local', { successRedirect: '/home',
-                                   failureRedirect: '/home',
-                                   failureFlash: true })
+                                   failureRedirect: '/home'
+                                   })
 );
 
 /* Call back functions for Thirdparty Authentication Mechanisams*/
