@@ -37,9 +37,7 @@ var signUp = function(request){
             saltstring: salt,
             emailid: request.body.email,
             contact: request.body.contact,
-            saltpassword: saltPasswd,
-            isVerified: false,
-            isDeleted: false
+            saltpassword: saltPasswd
         }).then(function(result){
             return transporter.sendMail(mailOptions).then(function(result){
                 return result;

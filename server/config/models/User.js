@@ -13,10 +13,12 @@ const User = sequelize.define('user',{
 		type:Sequelize.STRING
 	},
 	isverified:{
-		type:Sequelize.BOOLEAN
+		type:Sequelize.BOOLEAN,
+		defaultValue: false
 	},
 	isdeleted:{
-		type:Sequelize.BOOLEAN
+		type:Sequelize.BOOLEAN,
+		defaultValue: false
 	},
 	saltstring:{
 		type:Sequelize.STRING
