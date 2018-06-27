@@ -12,19 +12,10 @@ const routes = require('./routes')
 const redis = require('redis')
 const RedisStore = require('connect-redis')(session);
 const passport = require('passport');
-const sequelize = require('./DatabaseUtil')
-const cron = require('node-cron')
-const user_model = require('../server/config/models/User');
+const sequelize = require('./DatabaseUtil');
+const verificationJob = require('../server/Services/Jobs');
 
-var verifyTask = cron.schedule('0 0 0 * * *', function(){
-  console.log('running a task daily mid-night');
-    user_model.update({isdeleted:true}, { where: { isverified:false } }).then(function(){
-        console.log("Daily job Executed Succesfully");
-    }).catch(function(error){
-       Promise.reject(error);
-       console.log("Daily job Execution failed");
-    });
-});
+
 // API file for interacting with MongoDB
 //const api = require('./server/routes/api');
 
@@ -83,6 +74,6 @@ spdy
       return process.exit(1)
     } else {
       console.log('Listening on port: ' + port + '.')
-      verifyTask.start();
+      verificationJob.start();
     }
   })
