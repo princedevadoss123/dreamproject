@@ -8,7 +8,7 @@ import { ChangePwdComponent } from './change-pwd/change-pwd.component'
 const appRoutes: Routes = [
     { path: '', component: LoginChooserComponent },
     {path: 'register', component: SignUpFormComponent},
-    {path: 'mainIndex', component: MainIndexComponent},
+    {path: 'home', component: MainIndexComponent},
     {path: 'change/pwd', component: ChangePwdComponent},
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

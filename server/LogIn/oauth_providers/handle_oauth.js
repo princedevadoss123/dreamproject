@@ -9,14 +9,19 @@ const auth_config_li = require('../../config/OAuth/LinkedInStrategy');
 const strategy_user = require('../../config/models/StrategyUser');
 const local_user = require('../../config/models/User');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const secretkey = require('../../config/OAuth/token_secret').key;
 
 passport.serializeUser(function(user, done) {
     try {
         var userid = user[0].dataValues.userid;
+        id = {Id:userid}
     } catch (error) {
         var userid = user.dataValues.emailid;
+        id = {Id:userid}
     }
-    done(null, userid);
+    var token = jwt.sign(id,secretkey);
+    done(null, token);
   });
 passport.deserializeUser(function(id, done) {
     done(null, id);
@@ -69,7 +74,6 @@ passport.use(new LinkedInStrategy({
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
-    console.log(profile);
     process.nextTick(function () {
       strategy_user.findOrCreate({
         where: {userid: profile._json.id}, // we search for this user
@@ -85,18 +89,12 @@ passport.use(new LinkedInStrategy({
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
-      console.log(username)
-      console.log(password)
       local_user.findOne({where :{ emailid: username }}).then(function(user) {
-        console.log(user.dataValues.saltstring);
         if (!user) {
-          console.log('user name issue');
           return done(null, false, { message: 'Incorrect username.' });
         }else{
             var saltstring = user.dataValues.saltstring;
-            console.log(saltstring);
             var hashPassword = crypto.createHmac('sha512', password).update(saltstring).digest('base64');
-            console.log(hashPassword);
             if(hashPassword == user.dataValues.saltpassword){
                   done(null,user);
              }else{
