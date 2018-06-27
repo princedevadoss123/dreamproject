@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const db_config = require('./config/DBConfiguration/redis')
 const session = require('express-session')
-const routes = require('./routes')
 const redis = require('redis')
 const RedisStore = require('connect-redis')(session);
 const passport = require('passport');
@@ -44,7 +43,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/',routes);
+require('./routes')(app);
 // API location
 //app.use('/api', api);
 
