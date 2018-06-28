@@ -3,16 +3,11 @@ const user_model = require('../config/models/User');
 
 var verificationJob = {
     verifyTask :  cron.schedule('0 0 0 * * *', function(){
-            console.log('running a task daily mid-night');
             user_model.update({isdeleted:true}, { where: { isverified:false } }).then(function(){
                 console.log("Daily job Executed Succesfully");
             }).catch(function(error){
-            Promise.reject(error);
-            console.log("Daily job Execution failed");
+                console.log("Daily job Execution failed");
             });
-        }),
-    runTask : function(){
-        this.verifyTask.start();
-    }
+        }).start()
 }
 module.exports = verificationJob;
