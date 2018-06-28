@@ -74,6 +74,6 @@ spdy
       return process.exit(1)
     } else {
       console.log('Listening on port: ' + port + '.')
-      verificationJob.start();
+      verificationJob.runTask();
     }
   })
