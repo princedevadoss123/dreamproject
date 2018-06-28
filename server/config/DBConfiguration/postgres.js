@@ -1,7 +1,7 @@
 const postgres = {
 		host: "localhost",
 		dbuser: "postgres",
-		dbpassword: "muhil",
+		dbpassword: "rakhi",
 		dbname: "postgres"
 	}
 	
