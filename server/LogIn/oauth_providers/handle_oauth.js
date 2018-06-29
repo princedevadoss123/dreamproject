@@ -10,7 +10,7 @@ const strategy_user = require('../../config/models/StrategyUser');
 const local_user = require('../../config/models/User');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const secretkey = require('../../config/OAuth/token_secret').key;
+const secretkey = require('../../config/OAuth/token_secret');
 
 passport.serializeUser(function(user, done) {
     try {
@@ -20,7 +20,7 @@ passport.serializeUser(function(user, done) {
         var userid = user.dataValues.emailid;
         id = {Id:userid}
     }
-    var token = jwt.sign(id,secretkey);
+    var token = jwt.sign(id,secretkey.key);
     done(null, token);
   });
 passport.deserializeUser(function(id, done) {
