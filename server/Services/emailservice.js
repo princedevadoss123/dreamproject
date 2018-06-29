@@ -4,19 +4,19 @@ const nodemailer = require('nodemailer');
 var sendMail = function(mailid,subject,mail_body){
 
     var transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: "gmail",
         auth: {
-          user: 'pdevs2018@gmail.com',
-          pass: 'pdevs@123'
+          user: "pdevs2018@gmail.com",
+          pass: "pdevs@123"
         }
       });
       
       
       mailOptions = {
-        from: 'pdevs2018@gmail.com',
+        from: "pdevs2018@gmail.com",
         to: mailid,
         subject: subject,
-        html : 'Hello,<br> Please Click on the link to verify your email.<br><a href='+mail_body+'>Click here to verify</a>'
+        html : "Hello,<br> Please Click on the link to verify your email.<br><a href='+mail_body+'>Click here to verify</a>"
       };
     
     return transporter.sendMail(mailOptions).then(function(result){
@@ -27,5 +27,4 @@ var sendMail = function(mailid,subject,mail_body){
 
 } 
 
-
-module.exports = sendMail
+module.exports = sendMail;
