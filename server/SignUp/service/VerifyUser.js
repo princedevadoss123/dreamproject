@@ -1,4 +1,4 @@
-const user_model = require('../config/models/User');
+const user_model = require('../../config/models/User');
 
 var verifyUser = function(request)
 { 

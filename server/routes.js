@@ -1,5 +1,5 @@
-const passport = require('./LogIn/index.js');
 const userSignUp = require('./SignUp/index.js');
+const auth = require('./LogIn/index')
 
 var signup = userSignUp.signUp;
 var verify = userSignUp.verify;
@@ -21,33 +21,38 @@ module.exports = function(app){
 });
 
 /*Routes for Authentication from third party providers*/
-app.get('/auth/facebook',
-  passport.authenticate('facebook',{ scope: ['email'] }));
+app.get('/auth/facebook',function(request,response){
+  console.log('facebook');
+  response.setHeader(auth('facebook'));
+});
 
-app.get('/auth/google',
-   passport.authenticate('google', { scope: ['email'] }));
+app.get('/auth/google', function(){
+  auth('google');
+});
 
-app.get('/auth/linkedin',
-  passport.authenticate('linkedin'));
+app.get('/auth/linkedin',function(){
+  auth('linkedin');
+});
 
-app.post('/auth/login',
-  passport.authenticate('local', { successRedirect: '/success',
-                                   failureRedirect: '/',
-                                   failureFlash: true })
-);
+app.post('/auth/login',function(){
+  auth('local');
+});
 
 /* Call back functions for Thirdparty Authentication Mechanisams*/
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/success',
-                                      failureRedirect: '/' }));
-app.get('/auth/google/callback',
-  passport.authenticate('google', { successRedirect: '/success',
-                                      failureRedirect: '/' }));
+app.get('/auth/facebook/callback',function(){
+  auth('facebook','callback');
+});
 
-app.get('/auth/linkedin/callback',
-  passport.authenticate('linkedin', { successRedirect: '/success',
-                                      failureRedirect: '/' }));
+app.get('/auth/google/callback',function(){
+  auth('google','callback');
+});
+
+app.get('/auth/linkedin/callback',function(){
+  auth('linkedin','callback');
+
+});
+
 
 app.get('/logout', function(req, res){
   req.logout();

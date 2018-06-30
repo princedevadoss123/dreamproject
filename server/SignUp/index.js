@@ -1,6 +1,6 @@
 const CreateUser = require('./service/CreateUser')
 const Mailer = require('../Services/Mailer')
-const verifyUser = require('../Services/VerifyUser')
+const verifyUser = require('./service/VerifyUser')
 
 module.exports = {
 
