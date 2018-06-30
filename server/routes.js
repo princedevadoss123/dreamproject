@@ -1,7 +1,8 @@
-const passport = require('./LogIn/oauth_providers/handle_oauth')
-const userSignUp = require('./SignUp/index');
-const userverification = require('./SignUp/verify');
+const passport = require('./LogIn/index.js');
+const userSignUp = require('./SignUp/index.js');
 
+var signup = userSignUp.signUp;
+var verify = userSignUp.verify;
 
 
 
@@ -20,8 +21,6 @@ module.exports = function(app){
 });
 
 /*Routes for Authentication from third party providers*/
-
-
 app.get('/auth/facebook',
   passport.authenticate('facebook',{ scope: ['email'] }));
 
@@ -57,8 +56,8 @@ app.get('/logout', function(req, res){
 									  
 /*SignUp routes*/
 app.post('/user/signup',function(request,response)
-{
-  userSignUp(request).then(function(result){
+{ 
+  signup(request).then(function(result){
     console.log("Success");
     response.send(200)
   }).catch(function(error){
@@ -68,7 +67,7 @@ app.post('/user/signup',function(request,response)
 });
 
 app.get('/verify', function(request,response){
-    userverification(request).then(function(result){
+  verify(request).then(function(result){
       response.sendStatus(200).end();
     }).catch(function(error){
       console.log('error');
