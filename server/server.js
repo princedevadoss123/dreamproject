@@ -13,7 +13,7 @@ const RedisStore = require('connect-redis')(session);
 const passport = require('passport');
 const sequelize = require('./DatabaseUtil');
 const verificationJob = require('../server/Services/Jobs');
-
+const flash  =  require('connect-flash');
 
 // API file for interacting with MongoDB
 //const api = require('./server/routes/api');
@@ -21,6 +21,7 @@ const verificationJob = require('../server/Services/Jobs');
 // Parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
+app.use(flash());
 
 // Angular DIST output folder
 app.use(express.static('./dist'));
