@@ -17,12 +17,13 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
-      console.log('intercept');
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.tokenizer.getToken()}`
-        }
-      });
+      if(request.url != '/user/signup' && request.url != '/auth/login') {
+        request = request.clone({
+          setHeaders: {
+            Authorization: `Bearer ${this.tokenizer.getToken()}`
+          }
+        });
+      }
       return next.handle(request);
     }
 

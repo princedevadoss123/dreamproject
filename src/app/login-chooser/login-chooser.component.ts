@@ -3,6 +3,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 import { ValidationService } from '../services/validation/validation.service';
 import {AuthServiceService } from '../services/auth-service.service';
 import { Router } from '@angular/router';
+import { TokenService } from '../services/tokens/token.service';
 
 @Component({
   selector: 'app-login-chooser',
@@ -19,10 +20,15 @@ export class LoginChooserComponent implements OnInit {
     @Inject(DOCUMENT) private document: any,
     private validator: ValidationService,
     private authenticator: AuthServiceService,
-    private router: Router
+    private router: Router,
+    private tokenizer: TokenService
   ) { }
 
   ngOnInit() {
+    console.log(this.tokenizer.getToken());
+    if(this.tokenizer.getToken()) {
+      this.router.navigate(['home']);
+    }
   }
 
   passwordChecker() {

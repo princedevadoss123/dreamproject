@@ -24,7 +24,7 @@ export class MainIndexComponent implements OnInit {
     }
 
   ngOnInit() {
-    if(this.tokenizer.getToken() !== 'undefined') {
+    if(this.tokenizer.getToken()) {
     }
     else {
       this.router.navigate(['']);
