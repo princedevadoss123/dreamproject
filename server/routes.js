@@ -9,10 +9,8 @@ const userverification = require('./SignUp/verify');
 module.exports = function(app){
 
   app.get('/success', function(request,response){
-
     if(request.isAuthenticated()){
-      response.setHeader("Authorization",request.user);
-      response.redirect('/home');
+      response.redirect('/home?token='+request.user);
     }else{
       response.sendStatus(403);
     }
