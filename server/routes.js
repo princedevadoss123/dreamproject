@@ -19,6 +19,10 @@ module.exports = function(app){
   
 });
 
+app.get('/failure', function(request, response) {
+  response.send(403);
+})
+
 /*Routes for Authentication from third party providers*/
 
 
@@ -33,8 +37,7 @@ app.get('/auth/linkedin',
 
 app.post('/auth/login',
   passport.authenticate('local', { successRedirect: '/success',
-                                   failureRedirect: '/',
-                                   failureFlash: true })
+                                   failureRedirect: '/failure'})
 );
 
 /* Call back functions for Thirdparty Authentication Mechanisams*/
