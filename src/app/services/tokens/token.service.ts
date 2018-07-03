@@ -12,4 +12,10 @@ export class TokenService {
   getToken() {
     return localStorage.getItem('token');
   }
+
+  removeToken() {
+    if(this.getToken()) {
+      localStorage.removeItem('token');
+    }
+  }
 }

@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
 import {
   HttpRequest,
   HttpHandler,
+  HttpResponse,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { TokenService } from '../tokens/token.service';
 import { Observable } from 'rxjs/Observable';
@@ -24,7 +30,17 @@ export class TokenInterceptorService implements HttpInterceptor {
           }
         });
       }
-      return next.handle(request);
+      return next.handle(request).map((event: HttpEvent<any>) => {
+        
+      })
+      .catch((error:any, caught) => {
+        if(error instanceof HttpErrorResponse) {
+          if(error.status === 403) {
+            this.tokenizer.removeToken();
+          }
+          return Observable.throw(error);
+        }
+      });
     }
 
 }
