@@ -1,8 +1,8 @@
 const passport = require('./LogIn/oauth_providers/handle_oauth')
 const userSignUp = require('./SignUp/index');
 const userverification = require('./SignUp/verify');
-
-
+const authCheck = require('./Services/auth-check');
+const user = require('./User/index');
 
 
 /* Sample Home Url to test the Login Functionality */
@@ -75,6 +75,12 @@ app.get('/verify', function(request,response){
       console.log('error');
       response.send("Verification Failed").end();
     })
+});
+
+app.get('/user', function(request, response) {
+  if(authCheck.authChecker(request)) {
+    
+  }
 });
 
 }
