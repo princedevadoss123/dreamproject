@@ -1,10 +1,7 @@
 var sequelize = require('../../DatabaseUtil')
 var Sequelize = require('sequelize')
 
-const User = sequelize.define('User',{
-	username:{
-		type:Sequelize.STRING
-	},
+const User = sequelize.define('user',{
 	saltpassword:{
 		type:Sequelize.STRING
 	},
@@ -16,10 +13,12 @@ const User = sequelize.define('User',{
 		type:Sequelize.STRING
 	},
 	isverified:{
-		type:Sequelize.BOOLEAN
+		type:Sequelize.BOOLEAN,
+		defaultValue: false
 	},
 	isdeleted:{
-		type:Sequelize.BOOLEAN
+		type:Sequelize.BOOLEAN,
+		defaultValue: false
 	},
 	saltstring:{
 		type:Sequelize.STRING

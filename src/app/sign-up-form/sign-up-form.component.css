@@ -23,7 +23,7 @@
     position: absolute;
     top: 2%;
     left: 10%;
-    height: 90%;
+    height: 96%;
     width: 80%;
     background: linear-gradient(rgba(92, 91, 91, 0.103),rgba(145, 144, 144, 0.041));
     
@@ -54,7 +54,7 @@
 
 .content {
     position: relative;
-    margin-top: 5%;
+    margin-top: 10%;
     width: 100%;
     height: 12%;
 }
@@ -113,7 +113,7 @@
     border-radius: 4px;
 }
 
-.registerbutton:hover {
+.register-button:hover {
     text-shadow: 0 0 50px rgb(6, 69, 241);
     opacity:0.7;
     cursor: pointer;

@@ -8,8 +8,9 @@ const session = require('express-session')
 const redis = require('redis')
 const RedisStore = require('connect-redis')(session);
 const passport = require('passport');
-const logger = require('../server/Services/Logger')
-
+const sequelize = require('./DatabaseUtil');
+const verificationJob = require('../server/Services/Jobs');
+const logger = require('../server/Services/Logger');
 
 
 // Parsers
@@ -61,6 +62,7 @@ spdy
       logger.error(error)
       return process.exit(1)
     } else {
-      logger.info('Listening on port: ' + port + '.')
+      logger.info('Listening on port: ' + port + '.');
+      verificationJob.verifyTask;
     }
   })

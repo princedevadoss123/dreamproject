@@ -1,5 +1,5 @@
 const passport = require('./LogIn/oauth_providers/handle_oauth')
-const userSignUp = require('./SignUp/signup');
+const userSignUp = require('./SignUp/index');
 const userverification = require('./SignUp/verify');
 
 
@@ -60,10 +60,10 @@ app.post('/user/signup',function(request,response)
 {
   userSignUp(request).then(function(result){
     console.log("Success");
-    response.sendStatus(200).end();
+    response.send(200)
   }).catch(function(error){
-    console.log("Error");
-    response.sendStatus(500).end();
+    console.log(error);
+    response.send(500);
   })
 });
 

@@ -19,4 +19,12 @@ export class ValidationService {
     return regexp.test(password);
   }
 
+  confirmPasswordValidation(password, confPassword) {
+    return (password === confPassword);
+  }
+
+  contactValidation(contactNumber) {
+    return new RegExp('^[0-9]+$').test(contactNumber);
+  }
+
 }
