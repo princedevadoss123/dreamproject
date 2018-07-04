@@ -1,21 +1,20 @@
 const nodemailer = require('nodemailer');
 
-var Mailer = function(emailid,host)
+var Mailer = function(emailid,subject,mail_body)
 {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'kumarirakhi031@gmail.com',
-          pass: 'pass_word2_'
+          user: 'pdevs2018@gmail.com',
+          pass: 'pdevs@123'
         }
       });
 
-      var link="https://"+host+"/verify?id="+emailid;
       mailOptions = {
-        from: 'kumarirakhi031@gmail.com',
+        from: 'pdevs2018@gmail.com',
         to: emailid,
-        subject: 'Sending Email using Node.js',
-        html : 'Hello,<br> Please Click on the link to verify your email.<br><a href='+link+'>Click here to verify</a>'
+        subject: subject,
+        html : mail_body
       };
     return transporter.sendMail(mailOptions).then(function(result){
         return result;

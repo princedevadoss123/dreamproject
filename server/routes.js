@@ -3,6 +3,7 @@ const userSignUp = require('./SignUp/index');
 const userverification = require('./SignUp/verify');
 const authCheck = require('./Services/auth-check');
 const user = require('./User/index');
+const decodeToken = require('../server/Services/decode-token');
 
 
 /* Sample Home Url to test the Login Functionality */
@@ -78,9 +79,14 @@ app.get('/verify', function(request,response){
 });
 
 app.get('/user', function(request, response) {
-  if(authCheck.authChecker(request)) {
-    
-  }
+    if(authCheck(request)) {
+      decodeToken(request.token).then(function(result){
+      var id = {
+        email: result
+      }
+      response.send(id);
+     })
+    }
 });
 
 }

@@ -24,6 +24,7 @@ export class MainIndexComponent implements OnInit {
     }
 
   ngOnInit() {
+    console.log(this.tokenizer.getToken());
     if(this.tokenizer.getToken()) {
     }
     else {

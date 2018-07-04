@@ -14,7 +14,7 @@ const secretkey = require('../../config/OAuth/token_secret');
 
 passport.serializeUser(function(user, done) {
     try {
-        var userid = user[0].dataValues.userid;
+        var userid = user[0].dataValues.emailid;
         id = {Id:userid}
     } catch (error) {
         var userid = user.dataValues.emailid;
