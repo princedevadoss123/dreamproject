@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TokenService } from '../services/tokens/token.service';
 
 @Component({
   selector: 'app-main-index',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainIndexComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private tokenizer: TokenService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
+      activatedRoute.queryParams.subscribe(
+        params => {
+          if(params['token']) {
+            tokenizer.setToken(params['token']);
+            this.router.navigate(['home']);
+          }
+        }
+      )
+    }
 
   ngOnInit() {
+    console.log(this.tokenizer.getToken());
+    if(this.tokenizer.getToken()) {
+    }
+    else {
+      this.router.navigate(['']);
+    }
   }
 
 }

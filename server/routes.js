@@ -1,23 +1,26 @@
 const passport = require('./LogIn/oauth_providers/handle_oauth')
 const userSignUp = require('./SignUp/index');
 const userverification = require('./SignUp/verify');
-
-
+const authCheck = require('./Services/auth-check');
+const user = require('./User/index');
+const decodeToken = require('../server/Services/decode-token');
 
 
 /* Sample Home Url to test the Login Functionality */
 module.exports = function(app){
 
   app.get('/success', function(request,response){
-
     if(request.isAuthenticated()){
-      response.setHeader("Authorization",request.user);
-      response.redirect('/home');
+      response.redirect('/home?token='+request.user);
     }else{
       response.sendStatus(403);
     }
   
 });
+
+app.get('/failure', function(request, response) {
+  response.send(403);
+})
 
 /*Routes for Authentication from third party providers*/
 
@@ -33,8 +36,7 @@ app.get('/auth/linkedin',
 
 app.post('/auth/login',
   passport.authenticate('local', { successRedirect: '/success',
-                                   failureRedirect: '/',
-                                   failureFlash: true })
+                                   failureRedirect: '/failure'})
 );
 
 /* Call back functions for Thirdparty Authentication Mechanisams*/
@@ -74,6 +76,17 @@ app.get('/verify', function(request,response){
       console.log('error');
       response.send("Verification Failed").end();
     })
+});
+
+app.get('/user', function(request, response) {
+    if(authCheck(request)) {
+      decodeToken(request.token).then(function(result){
+      var id = {
+        email: result
+      }
+      response.send(id);
+     })
+    }
 });
 
 }

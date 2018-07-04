@@ -6,6 +6,7 @@ const app = express();
 const db_config = require('./config/DBConfiguration/redis')
 const session = require('express-session')
 const redis = require('redis')
+const bearerToken = require('express-bearer-token');
 const RedisStore = require('connect-redis')(session);
 const passport = require('passport');
 const sequelize = require('./DatabaseUtil');
@@ -16,6 +17,9 @@ const logger = require('../server/Services/Logger');
 // Parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
+
+//Bearer token storage
+app.use(bearerToken());
 
 // Angular DIST output folder
 app.use(express.static('./dist'));

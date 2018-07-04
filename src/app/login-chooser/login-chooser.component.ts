@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { ValidationService } from '../services/validation/validation.service';
+import {AuthServiceService } from '../services/auth-service.service';
+import { Router } from '@angular/router';
+import { TokenService } from '../services/tokens/token.service';
 
 @Component({
   selector: 'app-login-chooser',
@@ -15,10 +18,17 @@ export class LoginChooserComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private document: any,
-    private validator: ValidationService
+    private validator: ValidationService,
+    private authenticator: AuthServiceService,
+    private router: Router,
+    private tokenizer: TokenService
   ) { }
 
   ngOnInit() {
+    console.log(this.tokenizer.getToken());
+    if(this.tokenizer.getToken()) {
+      this.router.navigate(['home']);
+    }
   }
 
   passwordChecker() {
@@ -48,6 +58,26 @@ export class LoginChooserComponent implements OnInit {
     this.intialModelCheck = true;
     this.emailChecker();
     this.passwordChecker();
+    if(this.emailValidator && this.passwordValidator) {
+      var loginData = {
+        email: this.model.username,
+        password: this.model.password
+      };
+      this.authenticator.login(loginData)
+        .subscribe(
+          res => {
+            if(res) {
+
+            }
+            else {
+              this.router.navigate(['']);
+            }
+          },
+          err => {
+            this.router.navigate(['']);
+          }
+        );
+    }
   }
 
   oauthLogin(authType) {
