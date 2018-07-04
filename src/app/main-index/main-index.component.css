@@ -1,0 +1,102 @@
+.login-chooser-background {
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(rgba(226, 216, 216, 0.733), rgba(248, 246, 246, 0.623));
+}
+
+.inner-area-bar {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 1px 3px 3px 3px rgba(0,0,0,.2);
+    height: 10%;
+    width: 90%;
+    top: 15%;
+    left: 5%;
+    background: lightseagreen;
+}
+
+.inner-area-1 {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 1px 3px 3px 3px rgba(0,0,0,.2);
+    height: 30%;
+    width: 20%;
+    top: 40%;
+    left: 5%;
+    background: white;
+}
+
+.inner-area-1:hover {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 3px 5px 5px 3px rgba(0,0,0,.2);
+    height: 30%;
+    width: 20%;
+    top: 40%;
+    left: 5%;
+    background: aliceblue;
+    cursor: -webkit-grab;
+}
+
+.inner-area-2 {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 1px 3px 3px 3px rgba(0,0,0,.2);
+    height: 30%;
+    width: 20%;
+    top: 40%;
+    left: 40%;
+    background: white;
+}
+
+.inner-area-2:hover {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 1px 3px 3px 3px rgba(0,0,0,.2);
+    height: 30%;
+    width: 20%;
+    top: 40%;
+    left: 40%;
+    background: aliceblue;
+    cursor: -webkit-grab;
+}
+
+.inner-area-3 {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 1px 3px 3px 3px rgba(0,0,0,.2);
+    height: 30%;
+    width: 20%;
+    top: 40%;
+    left: 75%;
+    background: white;
+}
+
+.inner-area-3:hover {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 1px 3px 3px 3px rgba(0,0,0,.2);
+    height: 30%;
+    width: 20%;
+    top: 40%;
+    left: 75%;
+    background: aliceblue;
+    cursor: -webkit-grab
+}
+
+
+.label {
+    position: relative;
+    font-family: "Open Sans" sans-serif;
+    font-size: 50px;
+    margin-left: 40%;
+    font-weight: 200;
+    text-shadow: 0 0 1px #1e1e1e42;
+    color: #11111198;
+}
+
+.imageplacer{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
