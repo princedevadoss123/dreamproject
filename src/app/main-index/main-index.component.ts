@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../services/tokens/token.service';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-main-index',
@@ -8,9 +9,10 @@ import { TokenService } from '../services/tokens/token.service';
   styleUrls: ['./main-index.component.css']
 })
 export class MainIndexComponent implements OnInit {
-
+  private data: any;
   constructor(
     private tokenizer: TokenService,
+    private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private router: Router) {
       activatedRoute.queryParams.subscribe(
@@ -26,6 +28,14 @@ export class MainIndexComponent implements OnInit {
   ngOnInit() {
     console.log(this.tokenizer.getToken());
     if(this.tokenizer.getToken()) {
+      this.userService.user()
+        .subscribe((data) => {
+          console.log(data);
+          this.data = data;
+        },
+        (err) => {
+          console.log(err);
+        });
     }
     else {
       this.router.navigate(['']);

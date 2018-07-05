@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { routing } from './app.routing';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -15,6 +15,7 @@ import { ChangePwdComponent } from './change-pwd/change-pwd.component';
 import { AuthServiceService } from './services/auth-service.service';
 import { ValidationService} from './services/validation/validation.service';
 import { TokenInterceptorService } from './services/interceptor/token-interceptor.service';
+import { UserService } from './services/user/user.service';
 
 @NgModule({
   declarations: [
@@ -31,13 +32,15 @@ import { TokenInterceptorService } from './services/interceptor/token-intercepto
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpModule
   ],
 
   providers: [
     AuthServiceService,
     ValidationService,
     TokenService,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
