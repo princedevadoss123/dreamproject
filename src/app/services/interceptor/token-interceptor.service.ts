@@ -3,6 +3,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
+import { Router } from '@angular/router';
 import {
   HttpRequest,
   HttpHandler,
@@ -18,7 +19,8 @@ import { Observable } from 'rxjs/Observable';
 export class TokenInterceptorService implements HttpInterceptor {
 
   constructor(
-    private tokenizer: TokenService
+    private tokenizer: TokenService,
+    private router: Router
   ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler):
@@ -37,6 +39,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         if(error instanceof HttpErrorResponse) {
           if(error.status === 403) {
             this.tokenizer.removeToken();
+            this.router.navigate(['']);
           }
           return Observable.throw(error);
         }
