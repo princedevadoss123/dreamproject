@@ -9,7 +9,6 @@ import { UserService } from '../services/user/user.service';
   styleUrls: ['./main-index.component.css']
 })
 export class MainIndexComponent implements OnInit {
-  private data: any;
   constructor(
     private tokenizer: TokenService,
     private userService: UserService,
@@ -31,7 +30,6 @@ export class MainIndexComponent implements OnInit {
       this.userService.user()
         .subscribe((data) => {
           console.log(data);
-          this.data = data;
         },
         (err) => {
           console.log(err);
