@@ -87,6 +87,9 @@ app.get('/user', function(request, response) {
       response.send(id);
      })
     }
+    else {
+      response.send(403);
+    }
 });
 
 }
