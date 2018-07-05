@@ -1,1 +1,29 @@
 <app-user-header></app-user-header>
+<div class="login-chooser-background">
+    <!-- <div class="inner-area-bar">
+        <div class="label" >
+            {{time}}
+        </div>
+    </div> -->
+    <div class="inner-area-bar">
+        <table class="imageplacer">
+            <tr>
+                <td>
+                    <input class="input" type="text" name="num1" [(ngModel)]="number1" placeholder="number 1"/>
+                </td>
+                <td>
+                    <input class="input" type="text" name="num2" [(ngModel)]="number2" placeholder="number 2"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="inner-area-1" (click)="sub()">
+        <img class="imageplacer" src="../../assets/images/sub.png" alt="images"/>
+    </div>
+    <div class="inner-area-2" (click)="add()">
+        <img class="imageplacer" src="../../assets/images/add.png" alt="images"/>
+    </div>
+    <div class="inner-area-3" (click)="mul()">
+        <img class="imageplacer" src="../../assets/images/mul.png" alt="images"/>
+    </div>
+</div>

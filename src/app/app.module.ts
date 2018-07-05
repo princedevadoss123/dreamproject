@@ -15,6 +15,7 @@ import { ChangePwdComponent } from './change-pwd/change-pwd.component';
 import { AuthServiceService } from './services/auth-service.service';
 import { ValidationService} from './services/validation/validation.service';
 import { TokenInterceptorService } from './services/interceptor/token-interceptor.service';
+import { FunctionalityService } from './services/functionality/functionality.service';
 import { UserService } from './services/user/user.service';
 
 @NgModule({
@@ -45,7 +46,8 @@ import { UserService } from './services/user/user.service';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    },
+    FunctionalityService
   ],
   bootstrap: [AppComponent]
 })

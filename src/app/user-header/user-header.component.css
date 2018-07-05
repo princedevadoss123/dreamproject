@@ -2,7 +2,8 @@
     position: absolute;
     width: 100vw;
     height: 10%;
-    background:  linear-gradient(rgba(1, 21, 133, 0.966), rgba(2, 51, 184, 0.979));
+    background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+    /* background:  linear-gradient(rgba(1, 21, 133, 0.966), rgba(2, 51, 184, 0.979)); */
 }
 
 .myHeaderTitle {

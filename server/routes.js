@@ -78,6 +78,24 @@ app.get('/verify', function(request,response){
     })
 });
 
+app.get('/add',function(request,response){
+  var n1 = request.query.num1;
+  var n2 = request.query.num2;
+  //response.send("ans-"+(parseInt(n1)+parseInt(n2)));
+  response.send({name:"final response"});
+});
+
+app.get('/subtract',function(request,response){
+  var n1 = request.query.num1;
+  var n2 = request.query.num2;
+  response.send("ans-"+(parseInt(n1)-parseInt(n2)));
+});
+
+app.get('/multiply',function(request,response){
+  var n1 = request.query.num1;
+  var n2 = request.query.num2;
+  response.send("ans-"+(parseInt(n1)*parseInt(n2)));
+});
 app.get('/user', function(request, response) {
     if(authCheck(request)) {
       decodeToken(request.token).then(function(result){
