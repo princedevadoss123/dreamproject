@@ -79,22 +79,36 @@ app.get('/verify', function(request,response){
 });
 
 app.get('/add',function(request,response){
-  var n1 = request.query.num1;
-  var n2 = request.query.num2;
-  //response.send("ans-"+(parseInt(n1)+parseInt(n2)));
-  response.send({name:"final response"});
+  if(authCheck(request)) {
+    let n1 = request.query.num1;
+    let n2 = request.query.num2;
+    response.send({result: parseInt(n1) + parseInt(n2)});
+  }
+  else {
+    response.send(403);
+  }
 });
 
 app.get('/subtract',function(request,response){
-  var n1 = request.query.num1;
-  var n2 = request.query.num2;
-  response.send("ans-"+(parseInt(n1)-parseInt(n2)));
+  if(authCheck(request)) {
+    let n1 = request.query.num1;
+    let n2 = request.query.num2;
+    response.send({result: parseInt(n1) - parseInt(n2)});
+  }
+  else {
+    response.send(403);
+  }
 });
 
 app.get('/multiply',function(request,response){
-  var n1 = request.query.num1;
-  var n2 = request.query.num2;
-  response.send("ans-"+(parseInt(n1)*parseInt(n2)));
+  if(authCheck(request)) {
+    let n1 = request.query.num1;
+    let n2 = request.query.num2;
+    response.send({result: parseInt(n1) * parseInt(n2)});
+  }
+  else {
+    response.send(403);
+  }
 });
 app.get('/user', function(request, response) {
     if(authCheck(request)) {
