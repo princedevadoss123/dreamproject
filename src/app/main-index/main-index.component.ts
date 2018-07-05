@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../services/tokens/token.service';
 import { FunctionalityService } from '../services/functionality/functionality.service'; 
-
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-main-index',
@@ -10,7 +10,6 @@ import { FunctionalityService } from '../services/functionality/functionality.se
   styleUrls: ['./main-index.component.css']
 })
 export class MainIndexComponent implements OnInit {
-  
   time:String;
   number1: number;
   number2: number;
@@ -18,6 +17,7 @@ export class MainIndexComponent implements OnInit {
 
   constructor(
     private tokenizer: TokenService,
+    private userService: UserService,
     private activatedRoute: ActivatedRoute,
     private functionality: FunctionalityService,
     private router: Router) {
@@ -38,6 +38,13 @@ export class MainIndexComponent implements OnInit {
     }.bind(this), 1000);
     console.log(this.tokenizer.getToken());
     if(this.tokenizer.getToken()) {
+      this.userService.user()
+        .subscribe((data) => {
+          console.log(data);
+        },
+        (err) => {
+          console.log(err);
+        });
     }
     else {
       this.router.navigate(['']);

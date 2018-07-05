@@ -31,7 +31,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         });
       }
       return next.handle(request).map((event: HttpEvent<any>) => {
-        
+        return event;
       })
       .catch((error:any, caught) => {
         if(error instanceof HttpErrorResponse) {
