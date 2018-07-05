@@ -10,17 +10,17 @@ const strategy_user = require('../../config/models/StrategyUser');
 const local_user = require('../../config/models/User');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-const secretkey = require('../../config/OAuth/token_secret').key;
+const secretkey = require('../../config/OAuth/token_secret');
 
 passport.serializeUser(function(user, done) {
     try {
-        var userid = user[0].dataValues.userid;
+        var userid = user[0].dataValues.emailid;
         id = {Id:userid}
     } catch (error) {
         var userid = user.dataValues.emailid;
         id = {Id:userid}
     }
-    var token = jwt.sign(id,secretkey);
+    var token = jwt.sign(id,secretkey.key);
     done(null, token);
   });
 passport.deserializeUser(function(id, done) {
@@ -34,8 +34,8 @@ passport.use(new FacebookStrategy({
     profileFields: auth_config_fb.profileFields
   },
   function(accessToken, refreshToken, profile, done) {
-     //console.log(profile);
     //process.nextTick(function () {
+      return strategy_user.sync({force: false}).then(function(){
       strategy_user.findOrCreate({
         where: {userid: profile._json.id}, // we search for this user
         defaults: { provider : profile.provider, emailid: profile._json.email, username: profile._json.first_name + ' ' + profile._json.last_name, isdeleted: false, contact: null} // if it doesn't exist, we create it with this additional data
@@ -43,7 +43,8 @@ passport.use(new FacebookStrategy({
          return done(null,user);
       }).catch(function(error){
          return done(error);
-      });
+      })
+    });
     //});
   }
 ));

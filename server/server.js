@@ -1,26 +1,25 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
-const http = require('http');
 const spdy = require('spdy');
 const fs = require('fs');
-const jwt = require('jsonwebtoken');
 const app = express();
 const db_config = require('./config/DBConfiguration/redis')
 const session = require('express-session')
 const redis = require('redis')
+const bearerToken = require('express-bearer-token');
 const RedisStore = require('connect-redis')(session);
 const passport = require('passport');
 const sequelize = require('./DatabaseUtil');
 const verificationJob = require('../server/Services/Jobs');
+const logger = require('../server/Services/Logger');
 
-
-// API file for interacting with MongoDB
-//const api = require('./server/routes/api');
 
 // Parsers
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
+
+//Bearer token storage
+app.use(bearerToken());
 
 // Angular DIST output folder
 app.use(express.static('./dist'));
@@ -29,10 +28,10 @@ var redisClient = redis.createClient(db_config.port,db_config.host);
 redisClient.auth(db_config.password);
 
 redisClient.on('connect', function() {
-console.log('connected to redis!!');
+  logger.info('Connected to redis!!!');
 });
 redisClient.on("error", function (err) {
-    console.log("Error " + err);
+  logger.error("Error" + err);
 });
 
 app.use(session({
@@ -44,8 +43,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 require('./routes')(app);
-// API location
-//app.use('/api', api);
+
 
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
@@ -56,10 +54,6 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
-//http server
-// const server = http.createServer(app);
-// server.listen(port, () => console.log(`Running on localhost:${port}`));
-
 //https server
 const options = {
     key: fs.readFileSync('server/config/certificates/localhost-privkey.pem'),
@@ -69,10 +63,10 @@ spdy
   .createServer(options, app)
   .listen(port, (error) => {
     if (error) {
-      console.error(error)
+      logger.error(error)
       return process.exit(1)
     } else {
-      console.log('Listening on port: ' + port + '.')
+      logger.info('Listening on port: ' + port + '.');
       verificationJob.verifyTask;
     }
   })

@@ -43,3 +43,6 @@ testem.log
 .DS_Store
 Thumbs.db
 package-lock.json
+
+# Config Files
+/server/config/DBConfiguration/*.js 
