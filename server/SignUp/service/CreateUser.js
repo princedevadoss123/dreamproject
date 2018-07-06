@@ -1,33 +1,32 @@
 const user_model = require('../../config/models/User')
-const crypto = require('crypto');
+const saltPassword = require('../../Services/saltpassword')
+
 
 var CreateUser = function(request)
 {
-    var saltString = function (length) {
-        return crypto.randomBytes(Math.ceil(length / 2))
-         .toString('hex')
-         .slice(0, length);
-    };
-    
-    var salt = saltString(16);
     var password = request.body.password;
-    var saltPasswd = crypto.createHmac('sha512', password).update(salt).digest('base64');
+    var saltPasswd = saltPassword(password);
     var emailid = request.body.email;
-
     return user_model.sync({force: false}).then(function(){
         return user_model.create({
-            saltstring: salt,
+            saltstring: saltPasswd.saltString,
             emailid: emailid,
             contact: request.body.contact,
-            saltpassword: saltPasswd
+            saltpassword: saltPasswd.saltPwd
         }).then(function(result){
-           return result;
+            return result;
         }).catch(function(error){
-            console.log(error);
-            return Promise.reject(error);
+            if(error.name === 'SequelizeUniqueConstraintError')
+            {
+                var userExistsError = {
+                    error:"User already Exists"
+                }
+                return Promise.reject(userExistsError);
+            }else{
+                return Promise.reject(error);
+            }
         })
     }).catch(function(error){
-        console.log('Error Returned');
         return Promise.reject(error);
     })
  
