@@ -99,8 +99,7 @@ passport.use(new LocalStrategy(
             if(hashPassword == user.dataValues.saltpassword){
                   done(null,user);
              }else{
-                var error = new Error("Invalid password");
-                return done(error);
+               return done(null, false, { message: 'Incorrect password.' });
              }
         }
       });

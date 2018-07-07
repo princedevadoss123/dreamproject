@@ -1,12 +1,12 @@
-const decode_token = require('../Services/decode-token');
+const decodeToken = require('../Services/decode-token');
 const user = require('../config/models/User');
 const saltPassword = require('../Services/saltpassword');
 const updateUser = require('../Services/updateUser');
 
 module.exports = function(request){
-    return decode_token(request.token).then(function(result){
-       let emailid = result.email;
-       return user.find({emailid:emailid}).then(function(result){
+    return decodeToken(request.token).then(function(result){
+       let emailid = result.Id;
+       return user.find( {where : { emailid : emailid } } ).then(function(result){
             if(result == null){
                 return Promise.reject({error: "User Doesn't Exist"});
             }else{

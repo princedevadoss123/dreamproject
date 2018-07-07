@@ -60,12 +60,13 @@ export class LoginChooserComponent implements OnInit {
     this.passwordChecker();
     if(this.emailValidator && this.passwordValidator) {
       var loginData = {
-        email: this.model.username,
+        username: this.model.username,
         password: this.model.password
       };
       this.authenticator.login(loginData)
         .subscribe(
           res => {
+            console.log(res);
             if(res) {
 
             }
