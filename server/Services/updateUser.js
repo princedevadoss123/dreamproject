@@ -1,11 +1,11 @@
 const user = require('../config/models/User');
 
-module.exports = function(updatedetails){
-    var key;
-    if(updatedetails){
-        for(item in updatedetails){
+module.exports = function(updateDetails){
+    let key;
+    if(updateDetails){
+        for(item in updateDetails){
             if(item == 'key'){
-                key = updatedetails[item]; 
+                key = updateDetails[item]; 
             }else{
                 
             }

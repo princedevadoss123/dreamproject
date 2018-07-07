@@ -3,8 +3,8 @@ const check_email = require("../Services/email_check");
 const user = require("../config/models/StrategyUser");
 
 module.exports =  function(emailid,host){
-    var link = "https://"+host+"/change/pwd?mode=success";
-    var body = 'Hello,<br> Please Click on the link to change your password.<br><a href='+link+'>Click here to reset your password</a>';
+    let link = "https://"+host+"/change/pwd?mode=success";
+    let body = 'Hello,<br> Please Click on the link to change your password.<br><a href='+link+'>Click here to reset your password</a>';
     return user.find({emailid: emailid}).then(function(result){
         if(result != null){
             return check_email(emailid).then(function(result){
