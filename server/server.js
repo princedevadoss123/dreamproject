@@ -12,6 +12,9 @@ const passport = require('passport');
 const sequelize = require('./DatabaseUtil');
 const verificationJob = require('../server/Services/Jobs');
 const logger = require('../server/Services/Logger');
+const user = require('../server/config/models/User');
+const strategy_user = require('../server/config/models/StrategyUser');
+const initializeSchema = require('../server/Services/init-schema');
 
 
 // Parsers
@@ -44,7 +47,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 require('./routes')(app);
 
-
+initializeSchema(user);
+initializeSchema(strategy_user);
 // Send all other requests to the Angular app
 app.get('*', (req, res) => {
     res.sendFile('index.html', {root: './dist'});
