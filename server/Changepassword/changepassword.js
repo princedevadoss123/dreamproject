@@ -4,8 +4,7 @@ const saltPassword = require('../Services/saltpassword');
 const updateUser = require('../Services/updateUser');
 
 module.exports = function(request){
-    return decodeToken(request.token).then(function(result){
-       let emailid = result.Id;
+       let emailid = result.body.emailid;
        return user.find( {where : { emailid : emailid } } ).then(function(result){
             if(result == null){
                 return Promise.reject({error: "User Doesn't Exist"});
@@ -23,8 +22,5 @@ module.exports = function(request){
             }
        }).catch(function(error){
            return Promise.reject(error);
-       })
-    }).catch(function(error){
-        return Promise.reject(error);
-    });
+       });
 }
