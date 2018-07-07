@@ -55,6 +55,7 @@ export class MainIndexComponent implements OnInit {
     this.functionality.addition(this.number1, this.number2).subscribe(
       res => {
         if(res) {
+            this.result = res['result'];
             console.log(res);
         }
         else {
