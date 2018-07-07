@@ -7,7 +7,6 @@ var CreateUser = function(request)
     var password = request.body.password;
     var saltPasswd = saltPassword(password);
     var emailid = request.body.email;
-    return user_model.sync({force: false}).then(function(){
         return user_model.create({
             saltstring: saltPasswd.saltString,
             emailid: emailid,
@@ -26,9 +25,5 @@ var CreateUser = function(request)
                 return Promise.reject(error);
             }
         })
-    }).catch(function(error){
-        return Promise.reject(error);
-    })
- 
 }
 module.exports = CreateUser;
