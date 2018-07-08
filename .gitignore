@@ -43,6 +43,5 @@ testem.log
 .DS_Store
 Thumbs.db
 package-lock.json
-
-# Config Files
+dump.rdb
 /server/config/DBConfiguration/postgres.js 
