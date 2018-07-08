@@ -12,4 +12,8 @@ export class UserService {
   user() {
     return this.http.get('/user');
   }
+
+  logout() {
+    return this.http.get('/logout');
+  }
 }
