@@ -66,9 +66,9 @@ export class LoginChooserComponent implements OnInit {
       this.authenticator.login(loginData)
         .subscribe(
           res => {
-            console.log(res);
             if(res) {
-
+              this.tokenizer.setToken(res['token']);
+              this.router.navigate(['/home']);
             }
             else {
               this.router.navigate(['']);
