@@ -65,6 +65,7 @@ export class MainIndexComponent implements OnInit, AfterViewInit {
     this.functionality.subtraction(this.number1, this.number2).subscribe(
       res => {
         if(res) {
+            this.result = res['result'];
             console.log(res);
         }
         else {
@@ -81,6 +82,7 @@ export class MainIndexComponent implements OnInit, AfterViewInit {
     this.functionality.multiplication(this.number1, this.number2).subscribe(
       res => {
         if(res) {
+            this.result = res['result'];
             console.log(res);
         }
         else {
