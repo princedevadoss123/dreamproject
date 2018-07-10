@@ -14,13 +14,13 @@ const secretkey = require('../../config/OAuth/token_secret');
 
 passport.serializeUser(function(user, done) {
     try {
-        let userid = user[0].dataValues.emailid;
+        var userid = user[0].dataValues.emailid;
         id = {Id:userid}
     } catch (error) {
-        let userid = user.dataValues.emailid;
+        var userid = user.dataValues.emailid;
         id = {Id:userid}
     }
-    let token = jwt.sign(id,secretkey.key);
+    var token = jwt.sign(id,secretkey.key);
     done(null, token);
   });
 passport.deserializeUser(function(id, done) {
@@ -94,12 +94,12 @@ passport.use(new LocalStrategy(
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });
         }else{
-            let saltString = user.dataValues.saltstring;
-            let hashPassword = crypto.createHmac('sha512', password).update(saltString).digest('base64');
+            var saltstring = user.dataValues.saltstring;
+            var hashPassword = crypto.createHmac('sha512', password).update(saltstring).digest('base64');
             if(hashPassword == user.dataValues.saltpassword){
                   done(null,user);
              }else{
-                let error = new Error("Invalid password");
+                var error = new Error("Invalid password");
                 return done(error);
              }
         }

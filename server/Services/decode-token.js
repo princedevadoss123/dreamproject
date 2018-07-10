@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 //const secretkey = require('../../config/OAuth/token_secret');
 
 module.exports = function(token){
-let decodedToken = jwt.decode(token);
+var decoded_token = jwt.decode(token);
   return new Promise((resolve,reject) => {
-      if(decodedToken != null){
-          resolve(decodedToken.Id);
+      if(decoded_token != null){
+          resolve(decoded_token.Id);
       }else{
           reject("Error");
       }

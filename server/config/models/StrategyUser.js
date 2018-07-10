@@ -1,5 +1,5 @@
-let sequelize = require('../../DatabaseUtil')
-let Sequelize = require('sequelize')
+var sequelize = require('../../DatabaseUtil')
+var Sequelize = require('sequelize')
 const StrategyUser = sequelize.define('strategyuser',{
 	userid:{
 		type:Sequelize.STRING,

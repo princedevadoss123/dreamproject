@@ -1,5 +1,5 @@
-let sequelize = require('../../DatabaseUtil')
-let Sequelize = require('sequelize')
+var sequelize = require('../../DatabaseUtil')
+var Sequelize = require('sequelize')
 
 const User = sequelize.define('user',{
 	saltpassword:{
