@@ -1,5 +1,5 @@
 
-var authChecker = function(request) {
+let authChecker = function(request) {
     let sessionToken = request.user;
     let authToken = request.token;
     if(sessionToken && authToken) {
