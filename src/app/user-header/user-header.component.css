@@ -20,9 +20,15 @@
     font-weight: 300;
     color: white;
     text-align: right;
+    padding: 4px;
     margin-top:10px;
     margin-left: 70%;
     cursor: pointer;
+}
+
+.userProfile:hover {
+    background: #fcf7f759;
+    border-radius: 4px;
 }
 
 .myLogo {
