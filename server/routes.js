@@ -36,10 +36,19 @@ app.get('/auth/google',
 app.get('/auth/linkedin',
   passport.authenticate('linkedin'));
 
-app.post('/auth/login',
-  passport.authenticate('local', { successRedirect: '/success',
-                                   failureRedirect: '/failure'})
-);
+app.post('/auth/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    console.log(user);
+    console.log(err);
+    if (err) { return next(err); }
+    if (!user) { return res.send({error: 'Not found', message: 'Invalid Username or Password'}); }
+    req.logIn(user, function(err) {
+      console.log(err);
+      if (err) { return next(err); }
+      return res.send({ token: req._passport.session.user });
+    });
+  })(req, res, next);
+});
 
 /* Call back functions for Thirdparty Authentication Mechanisams*/
 
@@ -56,7 +65,7 @@ app.get('/auth/linkedin/callback',
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.send({message: 'logged out'});
 });
 									  
 /*SignUp routes*/

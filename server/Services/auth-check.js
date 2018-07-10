@@ -2,9 +2,8 @@
 var authChecker = function(request) {
     let sessionToken = request.user;
     let authToken = request.token;
-    console.log( sessionToken );
-    console.log( authToken );
     if(sessionToken && authToken) {
+        console.log(sessionToken === authToken);
         return (sessionToken === authToken);
     }
     else {
