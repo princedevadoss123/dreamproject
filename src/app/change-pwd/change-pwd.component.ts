@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ChangePwdService } from '../services/change-pwd/change-pwd.service';
 
 @Component({
   selector: 'app-change-pwd',
@@ -19,7 +20,8 @@ export class ChangePwdComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private pwdService: ChangePwdService
   ) { }
 
   ngOnInit() {
@@ -47,4 +49,25 @@ export class ChangePwdComponent implements OnInit {
   ngOnDestroy() {
     this.viewSelector.unsubscribe();
   }
+
+  requestNewPwd() {
+
+    var emailJson = {
+      email: this.model.username
+    };
+
+      this.pwdService.requestPwd(emailJson).subscribe(
+        res => {
+          if(res === 'SUCCESS') {
+            window.alert("Mail sent to reset Password!!");
+          } else {
+            window.alert("User ID doesn't exist");
+          }
+        },
+        err => {
+          console.log("Error in requesting new Password");
+        }
+      );
+    }
+  
 }

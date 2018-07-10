@@ -17,6 +17,7 @@ import { ValidationService} from './services/validation/validation.service';
 import { TokenInterceptorService } from './services/interceptor/token-interceptor.service';
 import { FunctionalityService } from './services/functionality/functionality.service';
 import { UserService } from './services/user/user.service';
+import { ChangePwdService } from './services/change-pwd/change-pwd.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { UserService } from './services/user/user.service';
     ValidationService,
     TokenService,
     UserService,
+    ChangePwdService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
