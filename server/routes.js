@@ -38,9 +38,12 @@ app.get('/auth/linkedin',
 
 app.post('/auth/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
+    console.log(user);
+    console.log(err);
     if (err) { return next(err); }
-    if (!user) { return res.redirect('/'); }
+    if (!user) { return res.send({error: 'Not found', message: 'Invalid Username or Password'}); }
     req.logIn(user, function(err) {
+      console.log(err);
       if (err) { return next(err); }
       return res.send({ token: req._passport.session.user });
     });

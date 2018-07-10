@@ -66,12 +66,12 @@ export class LoginChooserComponent implements OnInit {
       this.authenticator.login(loginData)
         .subscribe(
           res => {
-            if(res) {
+            if(res['token']) {
               this.tokenizer.setToken(res['token']);
               this.router.navigate(['/home']);
             }
             else {
-              this.router.navigate(['']);
+              alert(res['message']);
             }
           },
           err => {
