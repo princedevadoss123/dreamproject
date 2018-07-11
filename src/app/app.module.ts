@@ -17,6 +17,7 @@ import { ValidationService} from './services/validation/validation.service';
 import { TokenInterceptorService } from './services/interceptor/token-interceptor.service';
 import { FunctionalityService } from './services/functionality/functionality.service';
 import { UserService } from './services/user/user.service';
+import { ToastMsgComponent } from './toast-msg/toast-msg.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UserService } from './services/user/user.service';
     SignUpFormComponent,
     MainIndexComponent,
     UserHeaderComponent,
-    ChangePwdComponent
+    ChangePwdComponent,
+    ToastMsgComponent
   ],
   imports: [
     routing,
