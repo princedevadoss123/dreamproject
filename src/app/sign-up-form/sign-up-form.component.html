@@ -29,7 +29,7 @@
                                         <div *ngIf="(f.submitted && !contact.valid)" class="normal-block" [ngClass]="{ 'error-block': f.submitted && !contact.valid}">Contact Number is required</div>
                                         <div class="normal-block" [ngClass]="{ 'error-block': !(f.submitted && !contact.valid) && !contactValidator }">Invalid Contact Number</div>
                                     </div>
-                                    <input class="register-check" type="checkbox"/><span class="show-password">show password</span>
+                                    <input class="register-check" type="checkbox" [(ngModel)]="model.registercheck" name="registercheck" (ngModelChange)="showPassword()"/><span class="show-password">show password</span>
                                     <button class="register-button">Register</button>
                                   </form>
                   

@@ -16,6 +16,7 @@ import { AuthServiceService } from './services/auth-service.service';
 import { ValidationService} from './services/validation/validation.service';
 import { TokenInterceptorService } from './services/interceptor/token-interceptor.service';
 import { FunctionalityService } from './services/functionality/functionality.service';
+import { ShowPasswordService } from './services/show-password/show-password.service';
 import { UserService } from './services/user/user.service';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { UserService } from './services/user/user.service';
     ValidationService,
     TokenService,
     UserService,
+    ShowPasswordService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
