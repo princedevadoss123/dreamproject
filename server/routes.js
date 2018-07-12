@@ -147,9 +147,9 @@ app.post('/user/success/resetpassword',function(request,response) {
 
 app.get('/verify', function(request,response){
     userverification(request).then(function(result){
-      response.sendStatus(200).end();
+      response.redirect('/');
     }).catch(function(error){
-      response.send({error: "Verification Failed"});
+      response.send({error: "Verification Failed", message:"User doesnt exsist"});
     })
 });
 
