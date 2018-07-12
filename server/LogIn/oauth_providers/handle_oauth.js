@@ -35,14 +35,22 @@ passport.use(new FacebookStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     //process.nextTick(function () {
-      strategy_user.findOrCreate({
-        where: {userid: profile._json.id}, // we search for this user
-        defaults: { provider : profile.provider, emailid: profile._json.email, username: profile._json.first_name + ' ' + profile._json.last_name, isdeleted: false, contact: null} // if it doesn't exist, we create it with this additional data
-      }).then(function(user){
-         return done(null,user);
+      local_user.findOne({where:{emailid:profile._json.email}}).then(function(result){
+        if(result != null){
+          return done(null,false,{error: "Login Error", message: 'User Already Exists, Please Login with your registered emailid'});
+        }else{
+          strategy_user.findOrCreate({
+            where: {userid: profile._json.email}, // we search for this user
+            defaults: { provider : profile.provider, emailid: profile._json.email, username: profile._json.first_name + ' ' + profile._json.last_name, isdeleted: false, contact: null} // if it doesn't exist, we create it with this additional data
+          }).then(function(user){
+             return done(null,user);
+          }).catch(function(error){
+             return done(error,false);
+          });
+        }
       }).catch(function(error){
-         return done(error);
-      });
+        return done(error);
+      })
   }
 ));
 
@@ -52,15 +60,22 @@ passport.use(new GoogleStrategy({
     callbackURL: auth_config_go.callbackURL
   },
   function(token, tokenSecret, profile, done) {
-    //console.log(profile);
-    strategy_user.findOrCreate({
-      where: {userid: profile._json.id}, // we search for this user
-      defaults: { provider : profile.provider, emailid: profile.emails[0].value, username: profile._json.displayName, isdeleted: false, contact: null} // if it doesn't exist, we create it with this additional data
-    }).then(function(user){
-       return done(null,user);
+    local_user.findOne({where:{emailid:profile.emails[0].value}}).then(function(result){
+      if(result != null){
+        return done(null,false,{error: "Login Error", message: 'User Already Exists, Please Login with your registered emailid'});
+      }else{
+        strategy_user.findOrCreate({
+          where: {userid: profile._json.id}, // we search for this user
+          defaults: { provider : profile.provider, emailid: profile.emails[0].value, username: profile._json.displayName, isdeleted: false, contact: null} // if it doesn't exist, we create it with this additional data
+        }).then(function(user){
+           return done(null,user);
+        }).catch(function(error){
+           return done(error,false);
+        });
+      }
     }).catch(function(error){
-       return done(error);
-    });
+      return done(error);
+    })
   }
 ));
 
@@ -72,34 +87,50 @@ passport.use(new LinkedInStrategy({
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
-    process.nextTick(function () {
-      strategy_user.findOrCreate({
-        where: {userid: profile._json.id}, // we search for this user
-        defaults: { provider : profile.provider, emailid: profile._json.emailAddress, username: profile._json.formattedName, isdeleted: false, contact: null} // if it doesn't exist, we create it with this additional data
-      }).then(function(user){
-         return done(null,user);
-      }).catch(function(error){
-         return done(error);
-      });
-    });
+    local_user.findOne({where:{emailid: profile._json.emailAddress}}).then(function(result){
+      if(result != null){
+        return done(null,false,{error: "Login Error", message: 'User Already Exists, Please Login with your registered emailid'})
+      }else{
+        strategy_user.findOrCreate({
+          where: {userid: profile._json.id}, // we search for this user
+          defaults: { provider : profile.provider, emailid: profile._json.emailAddress, username: profile._json.formattedName, isdeleted: false, contact: null} // if it doesn't exist, we create it with this additional data
+        }).then(function(user){
+           return done(null,user);
+        }).catch(function(error){
+           return done(error,false);
+        });
+      }
+    }).catch(function(error){
+      return done(error);
+    })
   }
 ));
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
-      local_user.findOne({where :{ emailid: username }}).then(function(user) {
-        if (!user) {
-          return done(null, false, { message: 'Incorrect username.' });
+      strategy_user.findOne({where:{emailid: username}}).then(function(user){
+        if(!user){
+          local_user.findOne({where :{ emailid: username }}).then(function(user) {
+            if (!user) {
+              return done(null,false,{ error: 'Login Error',message:'User doesn\'t Exist.' });
+            }else{
+              if(user.dataValues.isverified == false){
+                return done(null,false,{ error: 'Verification Error', message: 'Please Verify your Email-Id before Logging in.' });
+              }else{
+                var saltstring = user.dataValues.saltstring;
+                var hashPassword = crypto.createHmac('sha512', password).update(saltstring).digest('base64');
+                if(hashPassword == user.dataValues.saltpassword){
+                      done(null,user);
+                 }else{
+                   return done(null,false,{ error: 'Login Error', message:'Invalid Password.' });
+                 }
+              }
+            }
+          });
         }else{
-            var saltstring = user.dataValues.saltstring;
-            var hashPassword = crypto.createHmac('sha512', password).update(saltstring).digest('base64');
-            if(hashPassword == user.dataValues.saltpassword){
-                  done(null,user);
-             }else{
-               return done(null, false, { message: 'Incorrect password.' });
-             }
+          return done(null,false,{error: 'Login Error',message:'User Already Exists, please login through your registered social account.'});
         }
-      });
+      })
     }
   ));
 

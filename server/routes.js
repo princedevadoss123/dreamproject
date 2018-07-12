@@ -36,32 +36,83 @@ app.get('/auth/google',
 app.get('/auth/linkedin',
   passport.authenticate('linkedin'));
 
-app.post('/auth/login', function(req, res, next) {
+app.post('/auth/login', function(request, response, next) {
   passport.authenticate('local', function(err, user, info) {
-    console.log(user);
-    console.log(err);
-    if (err) { return next(err); }
-    if (!user) { return res.send({error: 'Not found', message: 'Invalid Username or Password'}); }
-    req.logIn(user, function(err) {
-      console.log(err);
-      if (err) { return next(err); }
-      return res.send({ token: req._passport.session.user });
-    });
-  })(req, res, next);
+    if(!user){
+      if(info != null){
+        response.send(info);
+      }else{
+        response.send({error:'Database Error',message:'Cannot find user'});
+      }
+    }else{
+      request.logIn(user,function(err){
+        if (err) { 
+          response.send({error:'Server Error',message:'Cannot Login user'});
+        }
+        response.send({ token: request._passport.session.user });
+      })
+    }
+  })(request, response, next);
 });
 
 /* Call back functions for Thirdparty Authentication Mechanisams*/
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { successRedirect: '/success',
-                                      failureRedirect: '/' }));
-app.get('/auth/google/callback',
-  passport.authenticate('google', { successRedirect: '/success',
-                                      failureRedirect: '/' }));
+app.get('/auth/google/callback',function(request,response,next){
+  passport.authenticate('google',function(err,user,info) {
+    if(!user){
+      if(info != null){
+        response.redirect('/?error='+info.error+'&message='+info.message);
+      }else{
+        response.redirect('/?error='+'Database Error'+'&message='+'Cannot find user');
+      }
+    }else{
+      request.logIn(user,function(err){
+        if (err) { 
+          response.redirect('/?error='+'Server Error'+'&message='+'Cannot Login user');
+        }
+        response.redirect('/success');
+      })
+    }
+  })(request,response,next);
+});
 
-app.get('/auth/linkedin/callback',
-  passport.authenticate('linkedin', { successRedirect: '/success',
-                                      failureRedirect: '/' }));
+app.get('/auth/facebook/callback',function(request,response,next){
+  passport.authenticate('facebook',function(err,user,info) {
+    if(!user){
+      if(info != null){
+        response.redirect('/?error='+info.error+'&message='+info.message);
+      }else{
+        response.redirect('/?error='+'Database Error'+'&message='+'Cannot find user');
+      }
+    }else{
+      request.logIn(user,function(err){
+        if (err) { 
+          response.redirect('/?error='+'Server Error'+'&message='+'Cannot Login user');
+        }
+        response.redirect('/success');
+      })
+    }
+  })(request,response,next);
+});
+
+app.get('/auth/linkedin/callback',function(request,response,next){
+  passport.authenticate('linkedin',function(err,user,info) {
+    if(!user){
+      if(info != null){
+        response.redirect('/?error='+info.error+'&message='+info.message);
+      }else{
+        response.redirect('/?error='+'Database Error'+'&message='+'Cannot find user');
+      }
+    }else{
+      request.logIn(user,function(err){
+        if (err) { 
+          response.redirect('/?error='+'Server Error'+'&message='+'Cannot Login user');
+        }
+        response.redirect('/success');
+      })
+    }
+  })(request,response,next);
+});
 
 app.get('/logout', function(req, res){
   req.logout();
@@ -72,7 +123,7 @@ app.get('/logout', function(req, res){
 app.post('/user/signup',function(request,response)
 {
   userSignUp(request).then(function(result){
-    response.send(200)
+    response.send(result);
   }).catch(function(error){
     response.send(error);
   })
