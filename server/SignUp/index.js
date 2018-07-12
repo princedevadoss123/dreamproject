@@ -22,7 +22,7 @@ var signUp = function(request){
                   var body = 'Hello,<br> Please Click on the link to verify your email.<br><a href='+link+'>Click here to verify</a>';
                   var subject = 'Verification mail';
                   
-                  Mailer(emailid,subject,body).then(function(result){
+                  return Mailer(emailid,subject,body).then(function(result){
                     return result;
                   }).catch(function(error){
                     return Promise.reject(error);
