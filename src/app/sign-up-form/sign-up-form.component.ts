@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
 import { ValidationService } from '../services/validation/validation.service';
 import { AuthServiceService } from '../services/auth-service.service';
 import { Router } from '@angular/router';
+import { ShowPasswordService } from '../services/show-password/show-password.service';
 @Component({
   selector: 'app-sign-up-form',
   templateUrl: './sign-up-form.component.html',
@@ -15,9 +17,12 @@ export class SignUpFormComponent implements OnInit {
   contactValidator:boolean = true;
   intialModelCheck:boolean = false;
   
-  constructor(private validator: ValidationService,
+  constructor(
+    @Inject(DOCUMENT) private document: any,
+  private validator: ValidationService,
   private authenticator: AuthServiceService,
-  private router: Router) { }
+  private router: Router,
+  private showPasswd: ShowPasswordService) { }
 
   ngOnInit() {
   }
@@ -32,6 +37,12 @@ export class SignUpFormComponent implements OnInit {
     if(this.intialModelCheck) {
       this.validator.emailValidation(this.model.username) ? this.emailValidator = true : this.emailValidator = false;
     }
+  }
+
+  showPassword() {
+    var password = this.document.getElementsByName('password');
+    var confPassword = this.document.getElementsByName('confPassword');
+    this.showPasswd.showPassword(this.model.registercheck,password,confPassword);
   }
 
   confPasswordChecker() {

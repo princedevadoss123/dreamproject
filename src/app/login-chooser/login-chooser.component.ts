@@ -4,6 +4,7 @@ import { ValidationService } from '../services/validation/validation.service';
 import {AuthServiceService } from '../services/auth-service.service';
 import { Router } from '@angular/router';
 import { TokenService } from '../services/tokens/token.service';
+import { ShowPasswordService } from '../services/show-password/show-password.service';
 
 @Component({
   selector: 'app-login-chooser',
@@ -21,7 +22,8 @@ export class LoginChooserComponent implements OnInit {
     private validator: ValidationService,
     private authenticator: AuthServiceService,
     private router: Router,
-    private tokenizer: TokenService
+    private tokenizer: TokenService,
+    private showPasswd: ShowPasswordService
   ) { }
 
   ngOnInit() {
@@ -45,13 +47,8 @@ export class LoginChooserComponent implements OnInit {
   }
 
   showPassword() {
-    var element = this.document.getElementsByName('password');
-    if(this.model.logincheck) {
-      element[0].setAttribute('type', 'text');
-    }
-    else {
-      element[0].setAttribute('type', 'password');
-    }
+    var password = this.document.getElementsByName('password');
+    this.showPasswd.showPassword(this.model.logincheck,password,undefined);
   }
 
   login() {
