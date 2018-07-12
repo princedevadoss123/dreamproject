@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenService } from '../services/tokens/token.service';
 import { FunctionalityService } from '../services/functionality/functionality.service'; 
@@ -9,11 +9,12 @@ import { UserService } from '../services/user/user.service';
   templateUrl: './main-index.component.html',
   styleUrls: ['./main-index.component.css']
 })
-export class MainIndexComponent implements OnInit {
+export class MainIndexComponent implements OnInit, AfterViewInit {
   time:String;
   number1: number;
   number2: number;
   result: number;
+  @Output() mainIndexLoaded: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     private tokenizer: TokenService,
@@ -37,24 +38,17 @@ export class MainIndexComponent implements OnInit {
       //console.log("hell yeah "+this.time );
     }.bind(this), 1000);
     console.log(this.tokenizer.getToken());
-    if(this.tokenizer.getToken()) {
-      this.userService.user()
-        .subscribe((data) => {
-          console.log(data);
-        },
-        (err) => {
-          console.log(err);
-        });
-    }
-    else {
-      this.router.navigate(['']);
-    }
+  }
+
+  ngAfterViewInit() {
+    this.mainIndexLoaded.emit(true);
   }
 
   add() {
     this.functionality.addition(this.number1, this.number2).subscribe(
       res => {
         if(res) {
+            this.result = res['result'];
             console.log(res);
         }
         else {
@@ -71,6 +65,7 @@ export class MainIndexComponent implements OnInit {
     this.functionality.subtraction(this.number1, this.number2).subscribe(
       res => {
         if(res) {
+            this.result = res['result'];
             console.log(res);
         }
         else {
@@ -87,6 +82,7 @@ export class MainIndexComponent implements OnInit {
     this.functionality.multiplication(this.number1, this.number2).subscribe(
       res => {
         if(res) {
+            this.result = res['result'];
             console.log(res);
         }
         else {

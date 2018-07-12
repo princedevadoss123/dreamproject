@@ -116,7 +116,7 @@ app.get('/auth/linkedin/callback',function(request,response,next){
 
 app.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.send({message: 'logged out'});
 });
 									  
 /*SignUp routes*/

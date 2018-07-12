@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidationService } from '../services/validation/validation.service';
 import { AuthServiceService } from '../services/auth-service.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-up-form',
   templateUrl: './sign-up-form.component.html',
@@ -16,7 +16,8 @@ export class SignUpFormComponent implements OnInit {
   intialModelCheck:boolean = false;
   
   constructor(private validator: ValidationService,
-  private authenticator: AuthServiceService) { }
+  private authenticator: AuthServiceService,
+  private router: Router) { }
 
   ngOnInit() {
   }
@@ -60,7 +61,8 @@ export class SignUpFormComponent implements OnInit {
       this.authenticator.register(registrationData)
         .subscribe(
           res => {
-            console.log("success");
+            alert("success");
+            this.router.navigate(['/']);
           },
           err => {
             console.log("Error occured");
