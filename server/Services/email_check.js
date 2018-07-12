@@ -8,7 +8,7 @@ module.exports = function(email){
                 {
                     resolve(response);
                 } else{
-                    reject("Not delivered");
+                    reject({error:"Signup Error", message: "EmailID doesn't exist"});
                 }
             }else{
                 reject(err);
