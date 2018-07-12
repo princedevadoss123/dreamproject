@@ -1,6 +1,6 @@
 const email_service = require("../Services/Mailer");
 const check_email = require("../Services/email_check");
-const user = require("../config/models/StrategyUser");
+const user = require("../config/models/User");
 
 module.exports =  function(emailid,host){
     var link = "https://"+host+"/change/pwd?mode=success&email="+emailid+"";
@@ -11,7 +11,7 @@ module.exports =  function(emailid,host){
                 return email_service(emailid,"Password reset link",body).then(function(result){
                     return result;
                 }).catch(function(error){
-                    return Promise.reject({error: "Cannot Send Email, Check Internet Connection"});
+                    return Promise.reject({error: "Cannot Send Email"});
                 });
             }).catch(function(error){
                 return Promise.reject({error: "Enter a Valid Email"});
