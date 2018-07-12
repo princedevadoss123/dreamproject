@@ -17,9 +17,9 @@ var Mailer = function(emailid,subject,mail_body)
         html : mail_body
       };
     return transporter.sendMail(mailOptions).then(function(result){
-        return result;
+        return {success: "Signup", message: "Verification email has been sent."};
     }).catch(function(error){
-        return Promise.reject(error);
+        return Promise.reject({error:"Signup", message:"Unable to send email."});
     })
 }
 
