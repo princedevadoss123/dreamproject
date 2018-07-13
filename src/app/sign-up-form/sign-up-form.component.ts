@@ -72,11 +72,16 @@ export class SignUpFormComponent implements OnInit {
       this.authenticator.register(registrationData)
         .subscribe(
           res => {
-            alert("success");
-            this.router.navigate(['/']);
+            if(res['error']) {
+              alert(res['message']);
+            }
+            else {
+              alert(res['message']);
+              this.router.navigate(['/']);
+            }
           },
           err => {
-            console.log("Error occured");
+            alert(err);
           }
         );
     }
