@@ -7,8 +7,13 @@
                 <!-- Put in div container and then image
                    <div class="myLogo"></div> -->         
                   <span class="myHeaderTitle">Dream Project</span>
-                  <span class="userProfile" (click)="logout()" (mainIndexLoaded)="ngOnAfterRendering()">{{user}}</span>
-                        
+                  <div class="dropdown userProfile">
+                    <button class="btn"><i class="fa fa-bars"></i></button>
+                    <div class="dropdown-content">
+                      <span>{{user}}</span>
+                      <a (click)="logout()">Logout</a>
+                    </div>
+                  </div>
                     
                 
             </div>
