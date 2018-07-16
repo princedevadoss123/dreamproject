@@ -1,4 +1,4 @@
-const kickbox = require('kickbox').client('live_d82cd0b5a10712004d9ef854edd29f713a692b56f1873a47facdf9ea36c4acf7').kickbox();
+const kickbox = require('kickbox').client('live_e50255ec0b1df365444aad7ad4bcb9d872fc18e73a2e7d86bc8b3621d859e84c').kickbox();
 
 module.exports = function(email){
     return new Promise((resolve,reject) => {
@@ -11,7 +11,7 @@ module.exports = function(email){
                     reject({error:"Signup Error", message: "EmailID doesn't exist"});
                 }
             }else{
-                reject(err);
+                reject({error: "Kickbox Error", message: "No Balance"});
             }
         });
     })
