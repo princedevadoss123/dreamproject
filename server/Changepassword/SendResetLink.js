@@ -10,10 +10,10 @@ module.exports =  function(emailid,host){
             return email_service(emailid,"Password reset link",body).then(function(result){
                 return result;
             }).catch(function(error){
-                return Promise.reject({error: "Cannot Send Email"});
+                return Promise.reject({error: "Change Password Error", message: "Cannot send Email"});
             });
         }else{
-            return Promise.reject({error : "User Doesn't Exist"});
+            return Promise.reject({error : "Change Password Error", message: "User not found"});
         }
     }).catch(function(error){
         return Promise.reject(error);

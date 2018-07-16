@@ -7,17 +7,17 @@ module.exports = function(request){
        let emailid = request.body.emailid;
        return user.find( {where : { emailid : emailid } } ).then(function(result){
             if(result == null){
-                return Promise.reject({error: "User Doesn't Exist"});
+                return Promise.reject({error: "Change Password Error", message: "User not found"});
             }else{
                 let saltPwd = saltPassword(request.body.password);
                 let updateObject = {
                     saltpassword : saltPwd.saltPwd,
                     saltstring : saltPwd.saltString
                 };
-                updateUser(emailid,updateObject).then(function(result){
-                    return {status: "Password Updated Sucessfully"};
+                return updateUser(emailid,updateObject).then(function(result){
+                    return {success: "Change Password Error", message: "Password Updated Sucessfully"};
                 }).catch(function(error){
-                    return Promise.reject(error);
+                    return Promise.reject({error: "Change Password Error", message:"Database Error"});
                 });
             }
        }).catch(function(error){
