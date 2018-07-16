@@ -1,8 +1,8 @@
 const postgres = {
 		host: "localhost",
-		dbuser: "prince",
-		dbpassword: "prince",
-		dbname: "prince"
+		dbuser: "postgres",
+		dbpassword: "varsha",
+		dbname: "postgres"
 	}
 	
 module.exports = postgres
