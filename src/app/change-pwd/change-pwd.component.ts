@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ChangePwdService } from '../services/change-pwd/change-pwd.service';
 
 @Component({
   selector: 'app-change-pwd',
@@ -9,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ChangePwdComponent implements OnInit {
   private model: any = {};
   viewSelector: any;
+  changeEmail: string;
   viewType: string;
   innerAreaHeight: string;
   innerAreaTop: string;
@@ -19,7 +21,8 @@ export class ChangePwdComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private pwdService: ChangePwdService
   ) { }
 
   ngOnInit() {
@@ -47,4 +50,44 @@ export class ChangePwdComponent implements OnInit {
   ngOnDestroy() {
     this.viewSelector.unsubscribe();
   }
+
+  requestNewPwd() {
+    let serviceCall;
+
+    if(this.viewType === 'request'){
+    var emailJson = {
+      email: this.model.username
+    };
+    serviceCall = this.pwdService.requestPwd(emailJson);
+    }
+    else {
+      this.route
+      .queryParams
+        .subscribe(params => {
+          this.changeEmail = params['email'];
+        });
+      if(this.changeEmail){
+      var jsonNewPwd ={
+        emailid: this.changeEmail,
+        password: this.model.password
+      };
+      serviceCall = this.pwdService.successResetPwd(jsonNewPwd);
+    }
+    }
+    
+
+      serviceCall.subscribe(
+        res => {
+          if(res['status']) {
+            window.alert(res['status']);
+          } else{
+            window.alert(res['message']);
+          }
+        },
+        err => {
+          console.log("Error in requesting new Password");
+        }
+      );
+    }
+  
 }

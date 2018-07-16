@@ -1,7 +1,7 @@
 <div class="change-pwd-background">
   <div class="inner-area" [ngStyle]="{ 'height' : innerAreaHeight, 'top' : innerAreaTop }">
     <div class="change-pwd-header">{{title}}</div>
-    <form name="form" class="change-pwd-form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+    <form name="form" class="change-pwd-form" (ngSubmit)="f.form.valid && requestNewPwd()" #f="ngForm" novalidate>
         <div *ngIf="viewType === 'request'" class="content">
           <input class="input form-control" type="text" [ngClass]="{ 'input-error': f.submitted && !username.valid }" placeholder="Email..." name="username" [(ngModel)]="model.username" #username="ngModel" required/>
           <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !username.valid }">Username is required</div>
