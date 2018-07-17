@@ -8,12 +8,12 @@
         </div>
         <div *ngIf="viewType === 'success'" class="content form-group">
             <div class="label">Password:</div>
-            <input class="input form-control" type="text" [ngClass]="{ 'input-error': f.submitted && !password.valid }" placeholder="Password..." name="password" [(ngModel)]="model.password" #password="ngModel" required/>
+            <input class="input form-control" type="password" [ngClass]="{ 'input-error': f.submitted && !password.valid }" placeholder="Password..." name="password" [(ngModel)]="model.password" #password="ngModel" required/>
             <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !password.valid }">Password field is empty</div>
         </div>
         <div *ngIf="viewType === 'success'" class="change-content form-group">
             <div class="label">Confirm Password:</div>
-            <input class="input form-control" type="text" [ngClass]="{ 'input-error': f.submitted && !confPassword.valid }" placeholder="Confirm password..." name="confPassword" [(ngModel)]="model.confPassword" #confPassword="ngModel" required/>
+            <input class="input form-control" type="password" [ngClass]="{ 'input-error': f.submitted && !confPassword.valid }" placeholder="Confirm password..." name="confPassword" [(ngModel)]="model.confPassword" #confPassword="ngModel" required/>
             <div class="normal-block" [ngClass]="{ 'error-block': f.submitted && !confPassword.valid }">Confirm password field is empty</div>
         </div>
         <button class="send-button" [ngStyle]="{ 'height' : sendButtonHeight}">{{buttonText}}</button>

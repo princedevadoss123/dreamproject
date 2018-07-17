@@ -80,6 +80,7 @@ export class ChangePwdComponent implements OnInit {
         res => {
           if(res['status']) {
             window.alert(res['status']);
+            this.router.navigate(['']);
           } else{
             window.alert(res['message']);
           }
