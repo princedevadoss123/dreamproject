@@ -22,7 +22,7 @@
         <input class="login-check" type="checkbox" [(ngModel)]="model.logincheck" name="logincheck" (ngModelChange)="showPassword()" /><span class="show-password">show password</span>
         <button class="login-button">Login</button>
       </form>
-    <a class="login-register" [routerLink]="['/change/pwd']" [queryParams]="{ mode : 'success' }">register</a>
+    <a class="login-register" [routerLink]="['/register']">register</a>
     <a class="login-changepwd" [routerLink]="['/change/pwd']" [queryParams]="{ mode : 'request' }">change password</a>
   </div>
 </div>
